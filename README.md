@@ -52,6 +52,11 @@ Summary of the main files developed for the Human Debris project.
 * [One Shot Kills (OSK)](humandebris-files/mods/osk1.1.zip)
 * [Telefrag Railgun](humandebris-files/mods/telefrag.zip)
 
+![Sog's Rifle](humandebris-files/mods/sog.gif)
+![I Love Rockets](humandebris-files/mods/iloverockets.gif)
+![2D Platform Game](humandebris-files/mods/platform.gif)
+![One Shot Kills (OSK)](humandebris-files/mods/osk.gif)
+
 ### Quake 3 Arena Tutorials
 
 * Telefrag Gun
@@ -66,6 +71,10 @@ Summary of the main files developed for the Human Debris project.
 * [Server Query Tool](humandebris-files/software/ServerQueryTool.zip)
 * [Server Browser Tool](humandebris-files/software/ServerBrowserTool.zip)
 * [Fun Name Maker](humandebris-files/software/FunName.zip)
+
+![Server Query Tool](humandebris-files/software/ServerQuery.gif)
+![Server Browser Tool](humandebris-files/software/ServerBrowser.gif)
+![Fun Name Maker](humandebris-files/software/FunName.gif)
 
 ## PCPowerPlay Magazine
 
