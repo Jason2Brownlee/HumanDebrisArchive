@@ -24,3 +24,44 @@ Relevant off-site archives of the same material.
 * [http://ai-depot.com/FiniteStateMachines/](https://web.archive.org/web/20040625214646/http://ai-depot.com/FiniteStateMachines/) (internet archive)
 * [http://www.ict.swin.edu.au/personal/jbrownlee/other/games/index.html](https://web.archive.org/web/20080616100616/http://www.ict.swin.edu.au/personal/jbrownlee/other/games/index.html) (internet archive)
 
+## Human Debris Files
+
+Summary of the main files developed for the Human Debris project.
+
+### Quake 3 Arena Maps
+
+* [Bairnsdale Q3](humandebris-files/maps/bdaleq3.zip)
+* [Death From Above](humandebris-files/maps/dfa.zip)
+* [Railme](humandebris-files/maps/railme.zip)
+* [Rocketme](humandebris-files/maps/rocketme.zip)
+* [Duck 'n Cover](humandebris-files/maps/dnc.zip)
+* [2Kool](humandebris-files/maps/2kool.zip)
+
+### Quake 3 Arena Mods
+
+* [Sog's Rifle](humandebris-files/mods/sog1.1.zip)
+* [I Love Rockets](humandebris-files/mods/I-Love-Rockets1.1.zip)
+* [2D Platform Game](humandebris-files/mods/q3pg1.0.zip)
+* [One Shot Kills (OSK)](humandebris-files/mods/osk1.1.zip)
+* [Telefrag Railgun](humandebris-files/mods/telefrag.zip)
+
+### Quake 3 Arena Tutorials
+
+* Telefrag Gun
+* Guided Rockets
+* Kamikaze Key
+* Sticky Grenades
+* Jump and gib Gun
+* Alternate Weapons Fire
+
+### Quake 3 Arena Java Programs
+
+* [Server Query Tool](humandebris-files/software/ServerQueryTool.zip)
+* [Server Browser Tool](humandebris-files/software/ServerBrowserTool.zip)
+* [Fun Name Maker](humandebris-files/software/FunName.zip)
+
+## PCPowerPlay Magazine
+
+Scan of article in PCPowerplay magazine issue 52 on page 20.
+
+![PCPowerplay magazine](pcpowerplay/magazinearticle.gif)
