@@ -1,0 +1,206 @@
+<html>
+<head><script type="text/javascript" src="/_static/js/bundle-playback.js?v=1WaXNDFE" charset="utf-8"></script>
+<script type="text/javascript" src="/_static/js/wombat.js?v=txqj7nKC" charset="utf-8"></script>
+<script type="text/javascript">
+  __wm.init("https://web.archive.org/web");
+  __wm.wombat("http://ai-depot.com:80/FiniteStateMachines/FSM.html","20021109064917","https://web.archive.org/","web","/_static/",
+	      "1036824557");
+</script>
+<link rel="stylesheet" type="text/css" href="/_static/css/banner-styles.css?v=S1zqJCYt" />
+<link rel="stylesheet" type="text/css" href="/_static/css/iconochive.css?v=qtvMKcIJ" />
+<!-- End Wayback Rewrite JS Include -->
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Alex Champandard">
+
+<link href="https://web.archive.org/web/20021109064917cs_/http://ai-depot.com/Style/Article.css" rel="stylesheet" type="text/css">
+
+<title>Finite State Machines (FSM)</title>
+
+</head>
+
+<body>
+
+
+<div class="main">
+
+<table border="0" cellpadding="0" cellspacing="0" class="head">
+
+<tr> 
+	<td class="left">
+		<a href="https://web.archive.org/web/20021109064917/http://ai-depot.com/"><img src="/web/20021109064917im_/http://ai-depot.com/Images/Logo-title.jpeg" alt="Artificial Intelligence Depot"></a>
+		<div>
+		Visiting guest. Why not <a href="https://web.archive.org/web/20021109064917/http://ai-depot.com/Messages/Account.html">sign in</a>?		</div>
+ 
+	</td>
+	<td>
+		<table border="0" cellpadding="0" cellspacing="0" style="height: 128px;">
+			<tr><td class="rtop">News, knowledge and discussion for the AI enthusiast.</td></tr>
+			<tr><td class="rbot">
+			<table cellpadding="0" cellspacing="0" border="0">
+			<tr class="r">
+							<td class="n" style="padding-left: 1ex;"><a href="/web/20021109064917/http://ai-depot.com/Features/">FEATURES</a></td>
+								<td class="p" height="21"><img src="/web/20021109064917im_/http://ai-depot.com/Images/Pixel.gif" alt="" width="27" height="1"></td>
+								<td class="n"><a href="/web/20021109064917/http://ai-depot.com/Messages/">COMMUNITY</a></td>
+								<td class="p" height="21"><img src="/web/20021109064917im_/http://ai-depot.com/Images/Pixel.gif" alt="" width="27" height="1"></td>
+								<td class="n"><a href="/web/20021109064917/http://ai-depot.com/Knowledge.html">KNOWLEDGE</a></td>
+								<td class="p" height="21"><img src="/web/20021109064917im_/http://ai-depot.com/Images/Pixel.gif" alt="" width="27" height="1"></td>
+								<td class="n"><a href="/web/20021109064917/http://ai-depot.com/Search/">SEARCH</a></td>
+								<td style="background-color: #999961; background-image: url(&quot;/web/20021109064917im_/http://ai-depot.com/Images/Slash-line.png&quot;); width: 50%;">&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="8" class="f">
+					<table border="0" cellpadding="0" cellspacing="0">
+					<tr><td class="d">
+						<a href="https://web.archive.org/web/20021109064917/http://ai-depot.com/Contest">Get Creative: AI Article Writing Contest</a>
+						<div>Fancy the chance of getting developer focus, improving your research skills, sharing your artificial intelligence ideas, obtaining expert feedback, getting published online AND winning a prize?<br><span>Enter the <a href="https://web.archive.org/web/20021109064917/http://ai-depot.com/Contest/">AI Article Writing Contest!</a></span></div>
+					</td><td class="i">
+						<a href="https://web.archive.org/web/20021109064917/http://ai-depot.com/Contest"><img src="https://web.archive.org/web/20021109064917im_/http://ai-depot.com/Images/Adlets/Writing.png" alt=""></a>
+					</td></tr>
+					</table>
+				</td>
+			</tr>
+			</table>
+			</td></tr>
+		</table>
+	</td></tr>
+</table>
+
+
+<table cellspacing="0" cellpadding="0" border="0" class="menu">
+
+<tr><td style="width: 129px; vertical-align: top;">
+
+	<table cellspacing="0" cellpadding="0" border="0" style="width: 100%; background-color: #404040; border-width: 1px 1px 1px 0; border-color: #c0c0c0; border-style: solid;">
+	<tr><td class="c">FEATURES</td></tr>
+	<tr><td class="s">
+		<a href="/web/20021109064917/http://ai-depot.com/Features/News.html">news</a> +<br>
+		<a href="/web/20021109064917/http://ai-depot.com/Features/Essays.html">essays</a> +<br>
+		<a href="/web/20021109064917/http://ai-depot.com/Features/Tutorials.html">tutorials</a> +<br>
+		<a href="/web/20021109064917/http://ai-depot.com/Features/Reviews.html">reviews</a> +<br>
+		<a href="/web/20021109064917/http://ai-depot.com/Features/Information.html">information</a> +<br>
+	</td></tr>
+
+	<tr><td class="c">COMMUNITY</td></tr>
+	<tr><td class="s">
+		<a href="/web/20021109064917/http://ai-depot.com/Messages/">message store</a> +<br>
+		<a href="/web/20021109064917/http://ai-depot.com/Messages/Recent.html">recent activity</a> +<br>
+		<a href="https://web.archive.org/web/20021109064917/http://foundry.ai-depot.com/">project foundry</a> +<br>
+		<a href="/web/20021109064917/http://ai-depot.com/Community/Contribute.html">contribute</a> +<br>
+		<a href="/web/20021109064917/http://ai-depot.com/Community/Hosted.html">hosted sites</a> +<br>
+	</td></tr>
+
+	<tr><td class="c">KNOWLEDGE</td></tr>
+	<tr><td class="s">
+		<a href="/web/20021109064917/http://ai-depot.com/Warehouse/">NEW WAREHOUSE</a> +<br>
+		<a style="font-size: 7pt; " href="/web/20021109064917/http://ai-depot.com/Intro.html">artificial intelligence</a> +<br>
+		<a href="https://web.archive.org/web/20021109064917/http://neuralnetworks.ai-depot.com/">neural networks</a> +<br>
+		<a href="https://web.archive.org/web/20021109064917/http://geneticalgorithms.ai-depot.com/">genetic algorithms</a> +<br>
+		<a style="font-size: 7pt; " href="https://web.archive.org/web/20021109064917/http://reinforcementlearning.ai-depot.com/">reinforcement learning</a> +<br>
+	</td></tr>
+
+	<tr><td class="c">THIS SITE</td></tr>
+	<tr><td class="s">
+		<a href="/web/20021109064917/http://ai-depot.com/Site/Welcome.html">welcome</a> +<br>
+		<a href="/web/20021109064917/http://ai-depot.com/Search/">site search</a> +<br>
+		<a href="/web/20021109064917/http://ai-depot.com/Site/Link.html">link to us</a> +<br>
+	</td></tr>
+
+	<tr><td style="font-size: 16px;">&nbsp;</td></tr>
+
+	</table>
+
+	<table style="background-color: #000000; width: 100%;">
+	<tr><td>&nbsp;</td></tr>
+	</table>
+
+</td>
+
+<td class="content">
+
+<h1>Finite State Machines (FSM)</h1>
+
+<div class="nav"> 
+<div class="left">
+Version: <a href="https://web.archive.org/web/20021109064917/http://ai-depot.com/Features/Print.html?id=24">Printer Friendly</a><br>
+<a href="FSM.html"><img src="/web/20021109064917im_/http://ai-depot.com/Images/Nav-middle.png" alt=""></a>
+<a href="FSM-Background.html"><img src="/web/20021109064917im_/http://ai-depot.com/Images/Nav-right.png" alt=""></a>
+<a href="FSM-Practical.html"><img src="/web/20021109064917im_/http://ai-depot.com/Images/Nav-right.png" alt=""></a>
+<a href="FSM-Framework.html"><img src="/web/20021109064917im_/http://ai-depot.com/Images/Nav-right.png" alt=""></a>
+<a href="FSM-Conclusion.html"><img src="/web/20021109064917im_/http://ai-depot.com/Images/Nav-right.png" alt=""></a>
+</div>
+<div class="right">
+<span style="color: #c0c080; font-style: italic;">Introduction</span><br>
+<span style="color: #808080;">Jason Brownlee</span>
+</div></div>
+
+<div class="page">
+
+<h2>Forward</h2>
+
+<p><span class="f">F</span>inite state machine is a technique I have been hearing about for some time, probably since I first got interested in first person shooter (FPS) computer games. I never really thought about what the term meant, all I knew was that it was related to the way enemies work in these types of games. As I have progressed through my Information Technology course at university I have found myself increasingly looking back on concepts and techniques I have previously come across with questions, finite state machines being one of these topics.</p>
+
+<p><span class="f">F</span>inite state machines are said to have been "so widely used" and "so simple", yet they have not been covered in my course so far in programming or artificial intelligence subjects. I turned to common knowledge resources on the Internet (forever my jump start for new technologies and techniques) for a suitable definition within the scope of artificial intelligence, and was not satisfied. This essay is the product of my research on the topic of finite state machines in the context of artificial intelligence as a control technique, and through that research my goal was to learn something and through writing this essay hopefully be able to teach something.</p>
+
+
+<h2>Introduction</h2>
+
+<p><span class="f">T</span>he intent of this essay is to provide a useful and practical introduction of the technique of Finite State Machines (FSM) within the context of artificial intelligence (AI) as a control technique. The emphasis in this essay will be on practicality both in definition and explanation, rather than an emphasis on heavy theoretical and mathematical concepts behind the technique.</p>
+
+<p><span class="f">T</span>his essay will start with a light theory section describing the technique in terms of its elements and usage. The section will introduce the main types of finite state machine and popular enhancements to the basic concept. The second section will provide two "real world" examples from the computer game domain. These examples will provide insight into how the technique could be used to model specific systems and the type of control it can provide</p>
+
+<p><span class="f">T</span>he final section will take a detailed look at the finite state machine framework implemented in a production quality and commercially released product. It will provide insight into usage of finite state machines in a broader system and how that system could be implemented to support multiple concurrent finite state machines in the same environment</p>
+
+<p class="thread">Remember you can visit the <i>Message Store</i> to <a href="https://web.archive.org/web/20021109064917/http://artificialintelligence.ai-depot.com/ArtificialIntelligence/576.html">discuss this tutorial</a>.  
+There are already <b>6</b> replies in the thread, why not join in?
+</p>
+
+<div class="nav" style="text-align: right;">
+<a href="FSM.html"><img src="/web/20021109064917im_/http://ai-depot.com/Images/Nav-middle.png" alt=""></a>
+<a href="FSM-Background.html"><img src="/web/20021109064917im_/http://ai-depot.com/Images/Nav-right.png" alt=""></a>
+<a href="FSM-Practical.html"><img src="/web/20021109064917im_/http://ai-depot.com/Images/Nav-right.png" alt=""></a>
+<a href="FSM-Framework.html"><img src="/web/20021109064917im_/http://ai-depot.com/Images/Nav-right.png" alt=""></a>
+<a href="FSM-Conclusion.html"><img src="/web/20021109064917im_/http://ai-depot.com/Images/Nav-right.png" alt=""></a><br>Next: <a href="FSM-Background.html">Background</a>
+</div>
+
+<p class="brown">Back to the <a href="https://web.archive.org/web/20021109064917/http://ai-depot.com/">Artificial Intelligence Depot</a>.<p>
+</div>
+ 
+
+</td></tr>
+</table>
+
+
+</div>
+
+<div class="footer">
+<a href="https://web.archive.org/web/20021109064917/http://ai-depot.com/" title="Artificial Intelligence Depot"><img src="/web/20021109064917im_/http://ai-depot.com/Images/Logo-footer.png" alt="Artificial Intelligence" title="Artificial Intelligence" style="margin: 12px; border: 0;"></a><br>
+
+This page and its content are &copy; Copyright 2001-2002, Artificial Intelligence Depot.  All rights reserved.<br>
+Site owned and maintained by Alex J. Champandard.
+</div>
+
+</body>
+
+</html>
+<!--
+     FILE ARCHIVED ON 06:49:17 Nov 09, 2002 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 20:09:26 Jul 15, 2023.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  captures_list: 105.875
+  exclusion.robots: 0.15
+  exclusion.robots.policy: 0.141
+  cdx.remote: 0.054
+  esindex: 0.007
+  LoadShardBlock: 73.12 (3)
+  PetaboxLoader3.datanode: 74.732 (4)
+  load_resource: 431.194
+  PetaboxLoader3.resolve: 391.016
+-->

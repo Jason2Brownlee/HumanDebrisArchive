@@ -1,0 +1,195 @@
+<script type="text/javascript" src="/_static/js/bundle-playback.js?v=1WaXNDFE" charset="utf-8"></script>
+<script type="text/javascript" src="/_static/js/wombat.js?v=txqj7nKC" charset="utf-8"></script>
+<script type="text/javascript">
+  __wm.init("https://web.archive.org/web");
+  __wm.wombat("http://www.ict.swin.edu.au:80/personal/jbrownlee/other/games/tutorials/StickyGrenade.html","20071210024422","https://web.archive.org/","web","/_static/",
+	      "1197254662");
+</script>
+<link rel="stylesheet" type="text/css" href="/_static/css/banner-styles.css?v=S1zqJCYt" />
+<link rel="stylesheet" type="text/css" href="/_static/css/iconochive.css?v=qtvMKcIJ" />
+<!-- End Wayback Rewrite JS Include -->
+<script id="hostedAdCode"></script><script src="https://web.archive.org/web/20071210024422js_/http://web.archive.org/web/20030114172858js_/http://ads.gamespy.com/jserver/SITE=PQ/AREA=HOSTED/GENRE=ACTION/TIER=3/AAMSZ=PRESTITIAL?3129072610"></script><!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<base href="https://web.archive.org/web/20071210024422/http://www.planetquake.com/humandebris/tutorials/StickyGrenade-Tutorial/StickyGrenade.html">
+
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <meta name="Author" content="Jason [ Zygote ] Brownlee">
+   <meta name="Description" content="Make Grenades Stick To Walls">
+   <title>Sticky Grenades</title>
+</head>
+<body text="#C0C0C0" bgcolor="#000000" link="#3366FF" vlink="#3366FF" alink="#FF0000">
+<b><font face="Verdana"><font color="#FFFFFF">Make Grenades
+Stick To Walls.</font></font></b>
+<br><font face="Verdana"><font size="-1"><font color="#FFFFFF">Code Tutorial
+- by</font> <a href="https://web.archive.org/web/20071210024422/mailto:hop_cha@hotmail.com">Zygote</a> (<a href="https://web.archive.org/web/20071210024422/http://www.planetquake.com/humandebris">HUMAN
+DEBRIS</a>)</font></font>
+<br>&nbsp;
+<p><b><font face="Verdana"><font color="#FFFFFF"><font size="-1">Grenades
+that stick to walls?</font></font></font></b>
+<br><font face="Verdana"><font size="-1">This is a very short and simple
+tutorial.</font></font>
+<br><font face="Verdana"><font size="-1">In Quake3, when a grenade hits something
+that cannot be damaged, it will bounce off. We are going to change the
+grenade launcher so that instead of bouncing, they will stick.</font></font>
+<p><font face="Verdana"><font size="-1"><b><font color="#FFFFFF">Note:</font></b>
+I am not the worlds greatest programmer by a long shot, so don't go crazy
+if you see a bit of bad programming in this tutorial. I would appreciate
+any suggested improvements or corrections you can offer. The code has been
+tested extensively and works fine.</font></font>
+<p><font face="Verdana"><font size="-1">In doing this tutorial I assume you
+know how to compile the source, and have played with the code before.</font></font>
+<p><font face="Verdana"><font size="-1">Okay, on with the tutorial. This
+is a server side modification.</font></font>
+<p><b><font face="Verdana"><font color="#FFFFFF"><font size="-1">Files to
+be modified</font></font></font></b>
+<br><font face="Verdana"><font size="-1">g_missile.c</font></font><font face="Verdana"><font size="-1"></font></font>
+<p><b><font face="Verdana"><font color="#FFFFFF"><font size="-1">g_missile.c</font></font></font></b>
+<br><font face="Verdana"><font size="-1">Go down to the G_MissileImpact()
+function.</font></font>
+<br><font face="Verdana"><font size="-1">This is called by G_RunMissile everytime
+a missile hits something.</font></font><font face="Verdana"><font size="-1"></font></font>
+<p><font face="Verdana"><font size="-1">Find this block of code:</font></font>
+<br><font face="Verdana"><font size="-1">&nbsp;</font><font color="#FFFFCC"><font size="-2">//
+check for bounce</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;if (
+!other-&gt;takedamage &amp;&amp;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; ( ent-&gt;s.eFlags
+&amp; ( EF_BOUNCE | EF_BOUNCE_HALF ) ) ) {</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; G_BounceMissile(
+ent, trace );</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; G_AddEvent(
+ent, EV_GRENADE_BOUNCE, 0 );</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; return;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;}</font></font></font><font face="Verdana"><font size="-1"></font></font>
+<p><font face="Verdana"><font size="-1">This is the code that is run when
+our grenade bounces.</font></font><font face="Verdana"><font size="-1"></font></font>
+<p><font face="Verdana"><font size="-1">If the missile hits something that
+cannot be damaged, and it is the type of missile that bounces</font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">if ( !other-&gt;takedamage
+&amp;&amp; ( ent-&gt;s.eFlags &amp; ( EF_BOUNCE | EF_BOUNCE_HALF ) ) ) {</font></font></font><font face="Verdana"><font size="-1"></font></font>
+<p><font face="Verdana"><font size="-1">Bounce the missile, and send an event
+(the grenade bounce noise)</font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;G_BounceMissile(
+ent, trace );</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;G_AddEvent(
+ent, EV_GRENADE_BOUNCE, 0 );</font></font></font><font face="Verdana"><font size="-1"></font></font>
+<p><font face="Verdana"><font size="-1">To make the grenade stick and not
+bounce is a very simple modification of this code. The grenade is the only
+missile that can bounce, so a change to this code will not effect any other
+weapons.</font></font><font face="Verdana"><font size="-1"></font></font>
+<p><font face="Verdana"><font size="-1">Change the above block of code to:</font></font>
+<br><font face="Verdana"><font size="-1">&nbsp;</font><font color="#FF6666"><font size="-2">if
+( !other-&gt;takedamage &amp;&amp;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; ( ent-&gt;s.eFlags
+&amp; ( EF_BOUNCE | EF_BOUNCE_HALF ) ) ) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; //
+G_BounceMissile( ent, trace );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; //
+G_AddEvent( ent, EV_GRENADE_BOUNCE, 0 );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; G_SetOrigin(
+ent, trace-&gt;endpos ); // ZYGOTE NEW LINE</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; return;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;}</font></font></font><font face="Verdana"><font size="-1"></font></font>
+<p><font face="Verdana"><font size="-1">You will see that we have commented
+(</font><font color="#FF6666"><font size="-2">//</font></font><font size="-1">)
+out the line to tell the missile to bounce, and the line that sends a client
+side event.</font></font>
+<br><font face="Verdana"><font size="-1">The new line is:</font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">G_SetOrigin(
+ent, trace-&gt;endpos ); // ZYGOTE NEW LINE</font></font></font><font face="Verdana"><font size="-1"></font></font>
+<p><font face="Verdana"><font size="-1">This sets the origin of the grenade
+(where the grenade is in the world), to the surface of whatever it hit
+(the end of the trace).</font></font><font face="Verdana"><font size="-1"></font></font>
+<p><b><font face="Verdana"><font color="#FFFFFF"><font size="-1">That's It!</font></font></font></b>
+<br><font face="Verdana"><font size="-1">That is all there is to it.</font></font>
+<br><font face="Verdana"><font size="-1">Compile the code. Now load up your
+favorite map with a grenade launcher and test it out!</font></font>
+<br>&nbsp;
+</body>
+
+<!-- SOME SCRIPT SRC'S ON THIS PAGE HAVE BEEN REWRITTEN BY THE WAYBACK MACHINE
+OF THE INTERNET ARCHIVE IN ORDER TO PRESERVE THE TEMPORAL INTEGRITY OF THE SESSION. -->
+
+
+<script language="Javascript">
+<!--
+
+// FILE ARCHIVED ON 20030114172858 AND RETRIEVED FROM THE
+// INTERNET ARCHIVE ON 20070925073353.
+// JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+// ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+// SECTION 108(a)(3)).
+
+   var sWayBackCGI = "https://web.archive.org/web/20071210024422/http://web.archive.org/web/20030114172858/";
+
+   function xResolveUrl(url) {
+      var image = new Image();
+      image.src = url;
+      return image.src;
+   }
+   function xLateUrl(aCollection, sProp) {
+      var i = 0;
+      for(i = 0; i < aCollection.length; i++) {
+         if (typeof(aCollection[i][sProp]) == "string") { 
+          if (aCollection[i][sProp].indexOf("mailto:") == -1 &&
+             aCollection[i][sProp].indexOf("javascript:") == -1) {
+            if(aCollection[i][sProp].indexOf("http") == 0) {
+                aCollection[i][sProp] = sWayBackCGI + aCollection[i][sProp];
+            } else {
+                aCollection[i][sProp] = sWayBackCGI + xResolveUrl(aCollection[i][sProp]);
+            }
+         }
+         }
+      }
+   }
+
+   xLateUrl(document.getElementsByTagName("IMG"),"src");
+   xLateUrl(document.getElementsByTagName("A"),"href");
+   xLateUrl(document.getElementsByTagName("AREA"),"href");
+   xLateUrl(document.getElementsByTagName("OBJECT"),"codebase");
+   xLateUrl(document.getElementsByTagName("OBJECT"),"data");
+   xLateUrl(document.getElementsByTagName("APPLET"),"codebase");
+   xLateUrl(document.getElementsByTagName("APPLET"),"archive");
+   xLateUrl(document.getElementsByTagName("EMBED"),"src");
+   xLateUrl(document.getElementsByTagName("BODY"),"background");
+   var forms = document.getElementsByTagName("FORM");
+   if (forms) {
+       var j = 0;
+       for (j = 0; j < forms.length; j++) {
+              f = forms[j];
+              if (typeof(f.action)  == "string") {
+                 if(typeof(f.method)  == "string") {
+                     if(typeof(f.method) != "post") {
+                        f.action = sWayBackCGI + f.action;
+                     }
+                  }
+              }
+        }
+    }
+
+
+//-->
+</script>
+
+</html><!--
+     FILE ARCHIVED ON 02:44:22 Dec 10, 2007 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 23:00:36 Jul 14, 2023.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  captures_list: 128.703
+  exclusion.robots: 0.244
+  exclusion.robots.policy: 0.233
+  cdx.remote: 0.078
+  esindex: 0.01
+  LoadShardBlock: 83.159 (3)
+  PetaboxLoader3.datanode: 88.928 (4)
+  load_resource: 75.198
+  PetaboxLoader3.resolve: 42.759
+-->

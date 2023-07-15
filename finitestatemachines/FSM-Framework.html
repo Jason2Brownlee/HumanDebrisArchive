@@ -1,0 +1,220 @@
+<html>
+<head><script type="text/javascript" src="/_static/js/bundle-playback.js?v=1WaXNDFE" charset="utf-8"></script>
+<script type="text/javascript" src="/_static/js/wombat.js?v=txqj7nKC" charset="utf-8"></script>
+<script type="text/javascript">
+  __wm.init("https://web.archive.org/web");
+  __wm.wombat("http://ai-depot.com:80/FiniteStateMachines/FSM-Framework.html","20020918112132","https://web.archive.org/","web","/_static/",
+	      "1032348092");
+</script>
+<link rel="stylesheet" type="text/css" href="/_static/css/banner-styles.css?v=S1zqJCYt" />
+<link rel="stylesheet" type="text/css" href="/_static/css/iconochive.css?v=qtvMKcIJ" />
+<!-- End Wayback Rewrite JS Include -->
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Alex Champandard">
+
+<link href="https://web.archive.org/web/20020918112132cs_/http://ai-depot.com/Style/Article.css" rel="stylesheet" type="text/css">
+
+<title>A Finite State Machine Framework</title>
+
+</head>
+
+<body>
+
+
+<div class="main">
+
+<table border="0" cellpadding="0" cellspacing="0" class="head">
+
+<tr> 
+	<td class="left">
+		<a href="https://web.archive.org/web/20020918112132/http://ai-depot.com/"><img src="/web/20020918112132im_/http://ai-depot.com/Images/Logo-title.jpeg" alt="Artificial Intelligence Depot"></a>
+		<div>
+		Visiting guest. Why not <a href="https://web.archive.org/web/20020918112132/http://ai-depot.com/Messages/Account.html">sign in</a>?		</div>
+ 
+	</td>
+	<td>
+		<table border="0" cellpadding="0" cellspacing="0" style="height: 128px;">
+			<tr><td class="rtop">News, knowledge and discussion for the AI enthusiast.</td></tr>
+			<tr><td class="rbot">
+			<table cellpadding="0" cellspacing="0" border="0">
+			<tr class="r">
+							<td class="n" style="padding-left: 1ex;"><a href="/web/20020918112132/http://ai-depot.com/Features/">FEATURES</a></td>
+								<td class="p" height="21"><img src="/web/20020918112132im_/http://ai-depot.com/Images/Pixel.gif" alt="" width="27" height="1"></td>
+								<td class="n"><a href="/web/20020918112132/http://ai-depot.com/Messages/">COMMUNITY</a></td>
+								<td class="p" height="21"><img src="/web/20020918112132im_/http://ai-depot.com/Images/Pixel.gif" alt="" width="27" height="1"></td>
+								<td class="n"><a href="/web/20020918112132/http://ai-depot.com/Knowledge.html">KNOWLEDGE</a></td>
+								<td class="p" height="21"><img src="/web/20020918112132im_/http://ai-depot.com/Images/Pixel.gif" alt="" width="27" height="1"></td>
+								<td class="n"><a href="/web/20020918112132/http://ai-depot.com/Search/">SEARCH</a></td>
+								<td style="background-color: #999961; background-image: url(&quot;/web/20020918112132im_/http://ai-depot.com/Images/Slash-line.png&quot;); width: 50%;">&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="8" class="f">
+					<table border="0" cellpadding="0" cellspacing="0">
+					<tr><td class="d">
+						<a href="https://web.archive.org/web/20020918112132/http://ai-depot.com/Contest">Get Creative: AI Article Writing Contest</a>
+						<div>Fancy the chance of getting developer focus, improving your research skills, sharing your artificial intelligence ideas, obtaining expert feedback, getting published online AND winning a prize?<br><span>Enter the <a href="https://web.archive.org/web/20020918112132/http://ai-depot.com/Contest/">AI Article Writing Contest!</a></span></div>
+					</td><td class="i">
+						<a href="https://web.archive.org/web/20020918112132/http://ai-depot.com/Contest"><img src="https://web.archive.org/web/20020918112132im_/http://ai-depot.com/Images/Adlets/Writing.png" alt=""></a>
+					</td></tr>
+					</table>
+				</td>
+			</tr>
+			</table>
+			</td></tr>
+		</table>
+	</td></tr>
+</table>
+
+
+<table cellspacing="0" cellpadding="0" border="0" class="menu">
+
+<tr><td style="width: 129px; vertical-align: top;">
+
+	<table cellspacing="0" cellpadding="0" border="0" style="width: 100%; background-color: #404040; border-width: 1px 1px 1px 0; border-color: #c0c0c0; border-style: solid;">
+	<tr><td class="c">FEATURES</td></tr>
+	<tr><td class="s">
+		<a href="/web/20020918112132/http://ai-depot.com/Features/News.html">news</a> +<br>
+		<a href="/web/20020918112132/http://ai-depot.com/Features/Essays.html">essays</a> +<br>
+		<a href="/web/20020918112132/http://ai-depot.com/Features/Tutorials.html">tutorials</a> +<br>
+		<a href="/web/20020918112132/http://ai-depot.com/Features/Reviews.html">reviews</a> +<br>
+		<a href="/web/20020918112132/http://ai-depot.com/Features/Information.html">information</a> +<br>
+	</td></tr>
+
+	<tr><td class="c">COMMUNITY</td></tr>
+	<tr><td class="s">
+		<a href="/web/20020918112132/http://ai-depot.com/Messages/">message store</a> +<br>
+		<a href="/web/20020918112132/http://ai-depot.com/Messages/Recent.html">recent activity</a> +<br>
+		<a href="https://web.archive.org/web/20020918112132/http://foundry.ai-depot.com/">project foundry</a> +<br>
+		<a href="/web/20020918112132/http://ai-depot.com/Community/Contribute.html">contribute</a> +<br>
+		<a href="/web/20020918112132/http://ai-depot.com/Community/Hosted.html">hosted sites</a> +<br>
+	</td></tr>
+
+	<tr><td class="c">KNOWLEDGE</td></tr>
+	<tr><td class="s">
+		<a style="font-size: 7pt; " href="/web/20020918112132/http://ai-depot.com/Intro.html">artificial intelligence</a> +<br>
+		<a href="https://web.archive.org/web/20020918112132/http://neuralnetworks.ai-depot.com/">neural networks</a> +<br>
+		<a href="https://web.archive.org/web/20020918112132/http://geneticalgorithms.ai-depot.com/">genetic algorithms</a> +<br>
+		<a style="font-size: 7pt; " href="https://web.archive.org/web/20020918112132/http://reinforcementlearning.ai-depot.com/">reinforcement learning</a> +<br>
+	</td></tr>
+
+	<tr><td class="c">THIS SITE</td></tr>
+	<tr><td class="s">
+		<a href="/web/20020918112132/http://ai-depot.com/Site/Welcome.html">welcome</a> +<br>
+		<a href="/web/20020918112132/http://ai-depot.com/Search/">site search</a> +<br>
+		<a href="/web/20020918112132/http://ai-depot.com/Site/Link.html">link to us</a> +<br>
+	</td></tr>
+
+	<tr><td style="font-size: 16px;">&nbsp;</td></tr>
+
+	</table>
+
+	<table style="background-color: #000000; width: 100%;">
+	<tr><td>&nbsp;</td></tr>
+	</table>
+
+</td>
+
+<td class="content">
+
+<h1>A Finite State Machine Framework</h1>
+
+<div class="nav"> 
+<div class="left">
+Previous: <a href="FSM-Practical.html">Practical Analysis</a><br>
+<a href="FSM.html"><img src="/web/20020918112132im_/http://ai-depot.com/Images/Nav-left.png" alt=""></a>
+<a href="FSM-Background.html"><img src="/web/20020918112132im_/http://ai-depot.com/Images/Nav-left.png" alt=""></a>
+<a href="FSM-Practical.html"><img src="/web/20020918112132im_/http://ai-depot.com/Images/Nav-left.png" alt=""></a>
+<a href="FSM-Framework.html"><img src="/web/20020918112132im_/http://ai-depot.com/Images/Nav-middle.png" alt=""></a>
+<a href="FSM-Conclusion.html"><img src="/web/20020918112132im_/http://ai-depot.com/Images/Nav-right.png" alt=""></a>
+</div>
+<div class="right">
+<span style="color: #c0c080; font-style: italic;">Finite State Machines (FSM)</span><br>
+<span style="color: #808080;">Jason Brownlee</span>
+</div></div>
+
+<div class="page">
+
+<p><span class="f">I</span>n this section we will take a look at the implementation of finite state machines from broader perspective. We will investigate how a finite state machine can be implemented, and take a look at a framework that can facilitate multiple FSMs in a simulated real-time environment.</p>
+
+<p><span class="f">A</span> single FSM on its own is of little use; therefore we need to investigate implementations from a broader view to understand where a single FSM plugs in. We will analyze portions of the finite state machine framework from the computer game Quake, in attempt to understand how to make use of the technique in a real world application.</p>
+
+<p><span class="f">O</span>ne possible way to implement finite state machines is to have a controller of some type which acts as switch box. When the thread of execution swings around to execute code of the FSM, it is pointed at the controller which evaluates or determines the current state, usually through the use of a switch (case) statement or if-then-else statements. Once the current state is determined, the code for that state is executed, actions performed and possibly state transitions for the next time the FSM is executed. The controller may be a simple switch statement evaluating an integer, but an implementation may see the controller performing some pre-processing of inputs and triggering of state transitions before-hand.</p>
+
+<img src="/web/20020918112132im_/http://ai-depot.com/FiniteStateMachines/FSM6.png">
+<p class="desc"><u>Figure 3.1</u>: A FSM implementation where the controller acts as a switch box to determine which state to run. The red line denotes the thread of execution.</p>
+
+<p><span class="f">T</span>he implementation that the programmers at id Software have chosen could almost be considered to have Object-Oriented (OO) feel (though the implementation is not OO). As mentioned before, the game world is populated by entities, and as such a generic entity structure is used as their basis. Each entity in the collection of entities is provided with some execution time by calling its "think" function. The entity is executed by the game code in what could be described as a polymorphic manner. Entities have a common interface (because they are all the same data structure), and this interface consists of function pointers which are used to execute entity specific and entity non-specific code as either action outputs or input events for the FSM.</p>
+
+<p><span class="f">A</span>n example; most entities are affected by damage. Damage can be inflicted by many things like a rocket projectile for example. When a damage trigger is transmitted to another entity, its pain function pointer is called, thus triggering a state transition of the effected entity into possibly a death or attack state. Key point: The damage inflicted is an input to the FSM, which may act as a trigger for a state transition.</p>
+
+<p><span class="f">I</span>n essence the same switch-box technique described in figure 3.1 is used, where the entities base data structure provides function pointers which act as the "switches". When an entity is given a chance to execute its state, its "think" function pointer is called. If previously a damage input was received, the entity may have had a state transition into its "die state". When the thread of execution runs, the objects "die state" code is then run (via a polymorphic call of the entities think function), removing the entity instance from the game world.</p>
+
+<p><span class="f">R</span>ather than further explain using theory, let’s take a look at a practical example from the game Quake. A dog is a simple monster that wishes’s to attack the player or any other monster that angers it, much like the previously seen Shambler monster.</p>
+
+<p class="desc"><u>Figure 3.2</u>: Finite State Representation of states, actions, transitions and input events for a Dog monster in Quake.</p>
+<img style="float: none;" src="/web/20020918112132im_/http://ai-depot.com/FiniteStateMachines/FSM7.png">
+
+<p><span class="f">F</span>igure 3.2 shows the four main states of a Dog monster from Quake. Superimposed over that are the main actions performed in each of those states. Some map directly to functions, others map to chains of function calls. The representation clearly shows the five main input event actions with dark borders which are called as outputs of other finite state machines. There are two types of actions displayed, the gray background represents the dog monster specific code, and the white represent framework code used by all monsters.</p>
+
+<p><span class="f">T</span>he figure is a good diagrammatical tool for showing what monster specific code needs to be written and where it fits into the framework. It is not a complete representation, for example, in regard to the code executed after spawning, there are other "swim" and "fly" start actions used by some monsters that can swim and fly as opposed to our walking dog. Also there is a third attack sub-state called "slide attack" which is not relevant to the dog monster.</p>
+
+<p><span class="f">I</span>t can be seen that although the design of a FSM on paper may be clear cut and seem easy to implement, when it comes to implementing a larger number of them, such as all the monsters in a computer game, it is easy and probably necessary to blur the boundaries of the states. In figure 3.2 we do not see well defined functions representing states as may have been expected, instead functions are shared by states and FSMs. In this example it is clear that core actions have been decomposed and their functionality abstracted to be incorporated into the framework to be used by all monsters of the game. It is a nice approach for speed of execution, maintainability and code reuse, but poor due to a moderate level of complexity (time must be invested to trace the execution path).</p>
+
+<p><span class="f">T</span>he finite machine is provided with execution time through its think function. It evaluates inputs from its inputs from of the game world, but can directly receive specific events as input from the output of actions performed by other FSMs. These include a touch, use, pain and die events. These events can trigger state changes of the effected finite machine, for example, as seen in Figure 3.2 a touch input event is a collision determined by the game as it advances the game physics. When received in the above example, and if the dog monster has a valid "touch" sensor function specified (which may not always be the case), it will run the code in that function and possibly have a transition to its missile attack sub state or to its attack state for a revaluation of its attack sub-states.</p>
+
+<p><span class="f">I</span>t is becoming clear that a FSM in this domain is very useful as a control mechanism and when used on a larger scale as seen, it is powerful. This example shows that a FSM framework can provide the ability for a simple multi-agent system, where each FSM system could be considered an agent (<u>intelligent</u>; uses AI techniques, <u>autonomous</u>; acts independently). The FSMs have sensor functions implemented specifically to handle expected events, and also has effector functions which are simply the actions performed in the game world</p>
+
+<p class="thread">Remember you can visit the <i>Message Store</i> to <a href="https://web.archive.org/web/20020918112132/http://artificialintelligence.ai-depot.com/ArtificialIntelligence/576.html">discuss this tutorial</a>.  
+There are already <b>6</b> replies in the thread, why not join in?
+</p>
+
+<div class="nav" style="text-align: right;">
+<a href="FSM.html"><img src="/web/20020918112132im_/http://ai-depot.com/Images/Nav-left.png" alt=""></a>
+<a href="FSM-Background.html"><img src="/web/20020918112132im_/http://ai-depot.com/Images/Nav-left.png" alt=""></a>
+<a href="FSM-Practical.html"><img src="/web/20020918112132im_/http://ai-depot.com/Images/Nav-left.png" alt=""></a>
+<a href="FSM-Framework.html"><img src="/web/20020918112132im_/http://ai-depot.com/Images/Nav-middle.png" alt=""></a>
+<a href="FSM-Conclusion.html"><img src="/web/20020918112132im_/http://ai-depot.com/Images/Nav-right.png" alt=""></a><br>Next: <a href="FSM-Conclusion.html">Conclusion</a>
+</div>
+
+<p class="brown">Back to the <a href="https://web.archive.org/web/20020918112132/http://ai-depot.com/">Artificial Intelligence Depot</a>.<p>
+</div>
+ 
+
+</td></tr>
+</table>
+
+
+</div>
+
+<div class="footer">
+<a href="https://web.archive.org/web/20020918112132/http://ai-depot.com/" title="Artificial Intelligence Depot"><img src="/web/20020918112132im_/http://ai-depot.com/Images/Logo-footer.png" alt="Artificial Intelligence" title="Artificial Intelligence" style="margin: 12px; border: 0;"></a><br>
+
+This page and its content are &copy; Copyright 2001-2002, Artificial Intelligence Depot.  All rights reserved.<br>
+Site owned and maintained by Alex J. Champandard.
+</div>
+
+</body>
+
+</html>
+<!--
+     FILE ARCHIVED ON 11:21:32 Sep 18, 2002 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 20:09:23 Jul 15, 2023.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  captures_list: 75.447
+  exclusion.robots: 0.233
+  exclusion.robots.policy: 0.221
+  RedisCDXSource: 6.404
+  esindex: 0.01
+  LoadShardBlock: 45.611 (3)
+  PetaboxLoader3.datanode: 94.517 (4)
+  load_resource: 459.674
+  PetaboxLoader3.resolve: 268.621
+-->

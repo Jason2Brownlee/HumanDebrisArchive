@@ -1,0 +1,1129 @@
+<html>
+	<head><script type="text/javascript" src="/_static/js/bundle-playback.js?v=1WaXNDFE" charset="utf-8"></script>
+<script type="text/javascript" src="/_static/js/wombat.js?v=txqj7nKC" charset="utf-8"></script>
+<script type="text/javascript">
+  __wm.init("https://web.archive.org/web");
+  __wm.wombat("http://www.ict.swin.edu.au/personal/jbrownlee/other/ecosystem/index.html","20070830043735","https://web.archive.org/","web","/_static/",
+	      "1188448655");
+</script>
+<link rel="stylesheet" type="text/css" href="/_static/css/banner-styles.css?v=S1zqJCYt" />
+<link rel="stylesheet" type="text/css" href="/_static/css/iconochive.css?v=qtvMKcIJ" />
+<!-- End Wayback Rewrite JS Include -->
+
+		<title>Ecosystem</title>
+	</head>
+	<body>
+		<h1>Ecosystem</h1>
+<h2>Constructing a simple self-perpetuating society of adaptable agents</h2>
+		<p>
+		<a href="https://web.archive.org/web/20070830043735/http://www.it.swin.edu.au/personal/jbrownlee">Home</a>
+		</p>
+
+
+
+      <p>
+      <b>
+      Jason Brownlee<br>
+      April 2003<br>
+      AI Writing Competition
+      </b></p>
+      <p>
+
+<i>
+Adaptation - alteration in the structure or function of organisms which enables them to survive and multiply in a changed environment
+</i><br>
+- The Macquarie Dictionary
+<br>
+<br>
+
+
+
+<b>Forward </b>
+<br>I had read a number of articles on seemingly complex systems derived from
+simple rule sets, but it wasn’t until I constructed a Wator [1] simulation for a
+C++ class at University that I truly appreciated the magic of these systems.
+Later I reread Craig Reynolds: Boids [2] documentation and built a simple 2D
+implementation in Java. Honestly, I was spellbound. I could stare at the
+simulations for hours, wholly engrossed in the effect small changes in rules at
+the individual level had on the system as a whole.<br>
+<br>I became intensely interested in machine learning algorithms and data mining
+after taking a few courses in Intelligent Agents and Artificial Intelligence.
+After constructing a reasonable library of various neural network algorithms and
+playing with the plethora of toy classification and prediction problems I needed
+something I could sink my teeth into. <br>
+<br>The result is this article and its associated software. The goal was to
+attempt the construction of a self-perpetuating system of non-playable
+characters (NPC’s) that would use learning algorithms to optimize elements of
+their behaviour to engender their species.<br>
+<br>The system was designed to be simplistic, with the intent of reinforcing
+ideas. Although I believe the concepts involved are thought provoking
+nonetheless. I hope you’ll agree and possibly like myself spend countless hours
+of enjoyment and frustration in continually tweaking and observing the program’s
+parameters.<br>
+
+<br>
+<b>Introduction </b>
+<br>The goal of this article is to discuss the design and the practical
+implementation details of two common artificial intelligence techniques used in
+the construction of a non-deterministic, self- perpetuating and self-optimizing
+ecosystem of simple NPC’s in a real-time environment. Practical considerations
+are emphasized over technique detail. Upon completing this article the reader
+will have an understanding of development issues involved in applying the
+selected techniques in a real-time game environment.<br>
+<br>We will start with what the ecosystem is trying to achieve and what type of
+agents populate its universe. Next a development platform is selected and
+evaluated, with a focus on its strengths and weaknesses.<br>
+<br>A review is then made of the plant NPC with a focus on parameters which
+directly influence the species ability to survive and interact with other
+agents. A genetic algorithm is proposed and constructed to give the agent the
+flexibility to adapt to its local surroundings.<br>
+<br>Next the herbivore agent is examined. We look at critical sub-systems such as
+goal selection focus on the problem of feed goal evaluation. A perceptron
+solution is proposed and implemented, with a focus on management of herbivore
+memories and the affect dynamic learning has on goal selection.<br>
+<br>The system is evaluated using concepts such as diversity, longevity and
+determinism. Interesting observations and behaviour are discussed and finally
+extensions and additional features are proposed. <br>
+<br>We have an exciting journey ahead, so let’s gets straight into it.<br>
+
+<br>
+<b>What is Ecosystem? </b>
+<br>To begin, please forgive my use of the word agent; I have used it in the
+terms of "<i>A means by which something is done or caused</i>", rather than the
+Artificial Intelligence meaning defined by "<i>Agency, Intelligence and Mobility</i>".
+Associate my usage with the term Non-Playable Character (NPC).<br>
+<br>The vision of the ecosystem is a system of agents that use learning
+techniques, to directly or indirectly optimize their behaviour to meet
+challenges in their real-time environment with the goal of individual survival
+and reproduction. There are two agent types that exist in the ecosystem, which
+are highly dependent on each other for survival.<br>
+<br>
+<u>Plant</u>
+<br>The plant is a basic organism which exists to consume food and act as a food
+source to the Herbivore. Life for a plant is started as a seed which bursts into
+existence and floats down to root. Seeds can be sticky so they may stick to
+surfaces, but they are delicate little things so if they touch the wrong surface
+they die. Food for the plant is extracted from the environment over time
+(concept of sun-light). A plant can reproduce, but it must be grown-up (of a
+certain age) and it must receive pollen (genetic material) from another plant.
+Pollen is attached to agents whenever they touch/eat from the plant. Given a
+special combination of plant genes, a plant can be poisonous to eat.<br>
+<br>
+<u>Herbivore</u>
+<br>The herbivore is a simple creature that lives to eat plants. Herbivores start
+life as children able only to select plants to eat, and eat them. Once grown up,
+herbivores are able to consume plants at a faster rate and are able to
+reproduce. Herbivore’s live for a shorter time than plants, but have the unique
+ability of passing their instinct (regarding what makes a good plant to eat)
+onto their children.<br>
+<br>
+<u>System</u>
+<br>The system is small and low in complexity and its clear there are strong
+relationships between the two agents. A plant requires herbivores to act as a
+delivery vehicles to distribute its genetic material to other plants. Plants
+also rely on the herbivore to expose them to new pollen, providing the only
+mechanism for reproduction and ultimately the continuation of the plant species.<br>
+<br>Herbivores require plants to eat. Without plants, herbivores’ would die
+before they could grow up and reproduce. Herbivores need their population size
+maintained. Too many herbivores mean the food supply is exhausted before it can
+be replenished. Therefore plant population size has a relationship with the
+maximum number of herbivores it can sustain. An additional interesting feature
+is that not all plants are good for herbivores. There are some plants that have
+bad genes to cause them to be harmful to herbivores once eaten. <br>
+<br>The combination of the above relationships defines the general rules which
+restrict the system. Both species are forever walking the tight-rope of
+extinction relying on the individual agent decisions and the combined total of
+the actions/parameters of all agents to determine the systems condition.
+Combined with this is the fact that the very environment they exist in is
+subject to constant change with things like hazards and having paths to goals
+blocked. Agent associations are defined by their behaviour and need to be
+continually adjusted to adapt to local conditions. <br>
+<br>
+<u>Lifecycle</u>
+<br>Although each of the two distinct species perform different actions and have
+different behaviours they all share a common lifecycle. This lifecycle is a
+loose abstraction from nature:<br>
+      </p>
+<ul>
+    <li><u>Birth</u>: Agents must be spawned into the system. This spawning may
+    be a direct action of the application or the product of a reproduction
+    mechanism from one of the species. It is possible for an agent to take on
+    the characteristics of its parent or parents in a direct or manipulated
+    form. </li>
+    <li><u>Immaturity</u>: Agents in the system must develop to a defined level
+    before they can perform certain species specific actions and behaviours. </li>
+    <li><u>Maturity</u>: A mature agent has the full array of species
+    functionalities and behaviours available.</li>
+    <li><u>Death</u>: The death of an agent means the end or exit point from
+    the system. </li>
+</ul>
+
+      <p align="center">
+
+The lifecycle specification is better demonstrated through the use of a
+diagram (see figure 1.0).<br>
+
+<br>
+<img border="0" src="/web/20070830043735im_/http://ict.swin.edu.au/personal/jbrownlee/other/ecosystem/image001.gif" width="351" height="187">
+<br>
+<u><i>Figure 1.0 - The common agent lifecycle</i></u>
+      </p>
+
+      <p align="left">
+
+<b>Platform</b>
+<br>I chose to build the simulation on the Quake II computer game platform [3] by
+id Software [4]. The following are reasons why I think this particular platform
+is a good starting point for experimentation: <br>
+      </p>
+<ul>
+    <li>All program code is released [5] under the GNU General Public License
+    [6], meaning its open source, provided for free to everyone.</li>
+    <li>Free source code also ensures that the final product can be used as an
+    extensible platform for future products and artificial intelligence
+    simulations and experiments.</li>
+    <li>The game was released in 1997. At the time of release the game was
+    cutting edge and even today the graphics and game play experience are
+    impressive.</li>
+    <li>The computer system requirements for the application are low. This
+    means that unused CPU cycles can be allocated to AI routines whilst still
+    maintaining an acceptable frame rate.</li>
+    <li>There is an extensive amount of information on the Internet regarding
+    the modification of the game’s code. This includes tutorials, source code
+    for modifications, articles and papers.</li>
+    <li>The platform has been used as a testing ground for AI experiments and
+    simulations in the past including all manner of game bots, most of which
+    have freely available source code or articles describing their core
+    sub-systems.</li>
+</ul>
+
+      <p>
+
+The above points are great, but the selling point for me was the existing
+monster sub-systems. They provided me with a basic tool kit of monster behaviour
+which I could hook into as required, meaning I didn’t have to bother with detail
+outside the scope of what I was trying to achieve.<br>
+
+<br>
+<u>Framework</u>
+<br>Each monster in the game is provided with processing time via a common
+interface. The approach could almost be called polymorphism if it were an object
+oriented implementation. Generic monster functionality is abstracted and
+specific behaviour is defined by implementing the required interfaces (in this
+case provided as function pointers). This elegant approach is used throughout
+the game’s code and provides a welcomed level of flexibility.<br>
+<br>The monster framework provides an extensive collection of predefined generic
+monster behaviour. These subsystems include:<br>
+      </p>
+<ul>
+    <li>Monster initialization</li>
+    <li>Monster state management (standing, walking, and running)</li>
+    <li>Goal detection, selection and evaluation</li>
+    <li>Goal attack</li>
+    <li>Monster movement</li>
+    <li>Monster touch</li>
+    <li>Monster pain</li>
+    <li>Monster death</li>
+</ul>
+
+      <p>
+
+Where appropriate, the generic monster framework will call monster specific
+functionality to cope with a situation which generally in turn calls generic
+monster functions to deal with those conditions. The majority of the state
+transitions are managed for the monsters, all that is required is situation
+specific functions for things like attacking goals. <br>
+<br>The monster framework is low in complexity, but provides a lot of flexibility
+in allowing the choice to use as much or as little of the existing functionality
+as is required. This, in conjunction with the excellent rendering engine,
+physics, and network code make it a recommended launch pad for creative AI
+simulations and experiments. <br>
+<br>For some useful resources for programming on this platform, please refer to
+[7], [8] and [9].<br>
+
+<br>
+<b>Plant Agents</b>
+<br>Plants are very simple organisms. This section will discuss the four states a
+plant may be in and the constraints and actions of those states. The issue of
+plant reproduction will be raised and addressed using a genetic algorithm
+inspired solution.<br>
+
+<br>
+<u>Plant States</u>
+<br>A plant has a number of defined states it can be in at any one time. The
+state a plant agent instance is in narrows the set of actions it can perform and
+defines the rules which must be fulfilled to trigger a transition into other
+valid plant states. <br>
+<br>The following is a list of valid plant states.<br>
+      </p>
+<ul>
+    <li>- <u>Seed State:</u> the plant agent is a seed, directed by gravity to a
+    location to begin growing</li>
+    <li>- <u>Sprout State:</u> the plant agent has a location and begins growing,
+    providing resources and pollen to visiting agents</li>
+    <li>- <u>Established State:</u> whilst still providing pollen and resources,
+    plants are able to reproduce upon receiving pollen from another plant</li>
+    <li>- <u>Death State:</u> the plant dies and is removed from the environment</li>
+</ul>
+
+      <p align="left">
+
+<br>The following figure 1.1 provides a diagrammatical representation of the
+states for a plant and the valid state transitions.<br>
+</p>
+<p align="center">
+<img border="0" src="/web/20070830043735im_/http://ict.swin.edu.au/personal/jbrownlee/other/ecosystem/image002.gif" width="458" height="231">
+<br>
+<u><i>Figure 1.1 - The 4 state of a plant and the triggers for each state transition</i></u>
+</p>
+
+
+  <p align="left">
+
+Plants live for a defined length of time as a sprout and then grow to a
+mature state. Once mature, plants received an increase in the amount of
+resources that they can extract from the environment per server frame. They are
+also allowed to reproduce if pollinated. There are constraints regarding the
+number of times a plant can reproduce, the number of seeds it will release, the
+length of time between reproductions and so on. These variables are critical to
+the plant as they directly influence its behaviour and thus its ability to
+survive. <br>
+<br>To address the critical nature of plant parameters, many variables have been
+left as user adjustable constants in a configuration file. A small collection of
+critical variables were extracted and make up what is defined as the plants DNA.
+These parameters include:<br>
+
+      </p>
+
+<ul>
+    <li><u>Seed stickiness</u>: This is a floating point variable which defines
+    the degree to which the plant is sticky in its seed state. If this value is
+    greater than a configurable threshold the plant will stick to non-flat
+    surfaces like walls and overhangs. Non-sticky seeds simply bounce off the
+    same surfaces. Sticky seeds may allow plants to branch out into previously
+    unattainable areas, but also may reach areas which make them inaccessible
+    for pollination.</li>
+    <li><u>Seed weight</u>: The weight of the seed has an effect on the way a
+    plant reacts to gravity when spawned as a seed. Lite seeds may power up into
+    the atmosphere and die. Heavy seeds may not move far enough from the parent
+    producing plant clusters that are inaccessible for pollination.</li>
+    <li><u>Total seeds</u>: The number of seeds released each time a plant
+    reproduces. This may affect the diversity as well as the size of the
+    population. There may be cases where there is a high chance of plants
+    hitting a bad surface close by, so throwing a lot of product at the problem
+    may be a desired solution.</li>
+    <li><u>Reproduction frequency</u>: This is the number of times a plant can
+    reproduce in its lifetime (if it lives long enough). This too has a direct
+    affect on population size.</li>
+    <li><u>Three poison genes</u>: These seeming innocent genes are the spice
+    of the simulation. When configured in a certain way these genes activate a
+    poison in the plant. They consist of three floating point numbers. When any
+    two of the three are above a threshold they activate the poison. </li>
+</ul>
+
+      <p>
+
+<u>Genetic Algorithm (GA)</u>
+<br>Plants pass on genetic material to their seeds when they reproduce. A direct
+copy of this material would be clones of plants, meaning the species would be
+forever stuck in its random starting condition. The environments that the plants
+exist in are large and consist of varying terrain and hazards. There is a need
+for plants to be able to adapt their behaviour to meet local conditions; both
+local to the selected environment and local to the plants position and
+surroundings in the selected environment.<br>
+<br>Genetic Algorithms (GA’s) are a method of computing inspired by the ideas of
+evolution and natural selection. GA’s simulate the evolution process for a given
+problem via processes of selection, mutation and reproduction. They are known as
+being an effective search/learning/optimization technique at finding close to
+optimal solutions. Please refer to the Genetic Algorithms FAQ [10] for thorough
+treatment.<br>
+<br>The following provides an outline of the benefit of the various genetic
+operators to the plant species:<br>
+      </p>
+<ul>
+    <li><u>Crossover</u>: allows plants to combine material from both the
+    parent performing the reproduction and the genetic material the plant was
+    pollinated with. </li>
+    <li><u>Elitism</u>: allows clones of the parents to be produced, meaning
+    good parameter configurations have a chance of being repeated.</li>
+    <li><u>Mutation</u>: introduces a level of non-determinism and diversity
+    that will push the plant parameters in new directions allowing them to
+    overcome or surrender to the local environment.</li>
+</ul>
+
+      <p align="center">
+
+<img border="0" src="/web/20070830043735im_/http://ict.swin.edu.au/personal/jbrownlee/other/ecosystem/image003.gif" width="315" height="339">
+<br>
+<u><i>Figure 1.2 - Representation of the reproduction action of a plant using GA operators</i></u>
+      </p>
+
+      <p align="left">
+
+<u>Plant Fitness</u>
+<br>Figure 1.2 shows the design and features of plant reproduction using genetic
+operators, though there is something important missing; Fitness Evaluation and
+Selection. This is the determination of which plant agents are given the chance
+to reproduce and how that choice is made, a critical component of which the
+above scheme would be irrelevant without.<br>
+<br>Selection of which plants may reproduce is made by the herbivore agents.
+Herbivores use a selfish fitness function to evaluate plants in their local area
+and select one to eat from. Upon eating from a plant they pass on genetic
+material from the last plant they ate from, and then take genetic material away
+with them to their next food goal. <br>
+<br>Reiterating a plants ability to reproduce along with the implications of
+using the herbivores as the selection mechanism, a plant must:<br>
+      </p>
+<ul>
+    <li>survive to maturity</li>
+    <li>be within evaluation distance of a herbivore when mature</li>
+    <li>not be eaten to death before it can reproduce</li>
+    <li>be evaluated by the herbivore to be a good food target</li>
+</ul>
+
+      <p>
+
+<br>Sounds like an interesting self optimisation problem, but there is one more
+catch: the poison genes. Plants optimise their DNA ensuring they produce enough
+seeds, and that their seeds float through the air the right amount to survive
+and get eaten by herbivores. The downside is crossover and mutation also
+manipulates their poison genes and once activated will injure the herbivores
+they work so hard to optimise themselves for.<br>
+<br>Generally when employing GA techniques, the problems involve a large search
+space, where unit populations counted in the hundreds or thousands, and where
+converge on a solution can occur over many hundreds of generations. In this case
+the problem is small and relatively simple and it is expected smaller population
+sizes and convergence time are required. So called "errors" in plant behaviour
+are welcomed as they provide the simulation with a level of non-determinism
+expected by the user. They are also required by the optimisation procedure for
+pushing out of locally optimal values, to traverse the search space for good
+plant DNA.<br>
+
+<br>
+<b>Herbivore Agents</b>
+<br>The herbivore agent is more complex than the plant in that it makes use of a
+goal selection and evaluation system and moves about the environment pursuing
+its goals. This section discusses the states that a herbivore agent may have, as
+well as the actions it may perform in each state. The problem of flexible food
+selection is discussed and a Perceptron based solution implemented, along with a
+simple short term memory subsystem to capture and maintain training samples.<br>
+
+<br>
+<u>Herbivore States</u>
+<br>A herbivore has a number of states that it may exist in, and each state
+defines a set of actions which a herbivore instance may perform.<br>
+<br>The following is a brief description of the four valid states a herbivore may
+be in:<br>
+      </p>
+<ul>
+    <li><u>Birth State:</u> a herbivore is spawned into the world and settles
+    in a position to begin life.</li>
+    <li><u>Child State:</u> upon coming to a rest after birth, the herbivore
+    enters its child state where it immediately begins seeking and consuming
+    food goals.</li>
+    <li><u>Adult State:</u> once a herbivore has grown up it is able to
+    reproduce and pass on its knowledge learned during its time spent in the
+    simulation.</li>
+    <li><u>Death State:</u> the death of a herbivore is its exit point from the
+    system</li>
+</ul>
+
+
+      <p align="left">
+
+
+<br>Figure 1.3 is a diagrammatic representation of the state lifecycle of a
+herbivore, depicting valid state transitions.
+
+      </p>
+
+
+      <p align="center">
+
+
+<img border="0" src="/web/20070830043735im_/http://ict.swin.edu.au/personal/jbrownlee/other/ecosystem/image004.gif" width="435" height="243">
+<br>
+<u><i>Figure 1.3 - Shows the lifecycle states of a herbivore agent and the triggers for each state transition</i></u>
+
+      </p>
+
+
+      <p align="left">
+
+
+<u>Herbivore Feeding Problem</u>
+<br>Herbivores must eat plants to survive. The problem is not all plants are
+edible; some are poisonous which injure the herbivore when eaten. Herbivores
+cannot reproduce until they mature, but when they reproduce they pass a snapshot
+of their instincts onto their offspring, giving them the best start in life they
+can. Obviously only herbivores that are able to select enough good food to live
+until they reproduce will continue the species, providing the interesting
+situation of Darwinism (survival of the fittest or survival of the best
+classifiers). The combined result of this behaviour is that over a number of
+generations it is expected that the amount of accumulated knowledge regarding
+good food selection would continually increase. <br>
+<br>Herbivores are asexual meaning they reproduce by themselves and are not
+required to mate. This means genetic operators cannot be used to combine genetic
+material of parents, so how is change introduced into the species? What is to
+stop herbivores continually refining their behaviour and passing it on to their
+children until they are near-perfect at selecting food? What affect would this
+have when all the "good" food is exhausted?<br>
+<br>We have seen that plants require the herbivore to act as a fitness evaluation
+mechanism, selecting which plants may reproduce. We have also seen that the
+plants require a fitness evaluation that is flexible enough to not always make
+selections based on the same plant characteristics, in an attempt at maintain a
+level of plant diversity. Now we have seen that herbivores also require this
+flexibility. Both agent species have common requirements for the same
+functionality, so how can these problems be addressed? <br>
+
+<br>
+<u>Enter the Perceptron</u>
+<br>Effectively, the plant attributes most relevant to the herbivores immediate
+needs (what can I eat right now) are the poison genes. <br>
+<br>The plants poison genes are floating point values which must be above a
+threshold to be active. To make a plant poisonous for its lifetime, two of the
+threes genes must be active. This problem can be characterized by the following
+propositional rules:<br>
+<br>(P1 ^ P2) v (P1 ^ P3) v (P2 ^ P3) =&gt; Not Edible
+<br>¬(P1 ^ P2) ^ ¬(P1 ^ P3) ^ ¬(P2 ^ P3) =&gt; Edible
+<br>Those not familiar with logic connectives: (^ is AND, v is OR, ¬ is NOT, =&gt;
+is Implies).<br>
+
+
+<br>Below is the same problem expressed as a binary truth table:<br>
+
+      </p>
+
+      <div align="center">
+        <center>
+
+<table border cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+  <tr>
+    <td width="26%" valign="MIDDLE" bgcolor="#FFFFFF"><b>
+    <p align="CENTER">Poison1</b></td>
+    <td width="26%" valign="MIDDLE" bgcolor="#FFFFFF"><b>
+    <p align="CENTER">Poison2</b></td>
+    <td width="26%" valign="MIDDLE" bgcolor="#FFFFFF"><b>
+    <p align="CENTER">Poison3</b></td>
+    <td width="22%" valign="MIDDLE" bgcolor="#FFFFFF"><b>
+    <p align="CENTER">Edible</b></td>
+  </tr>
+  <tr>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">1</td>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">1</td>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">1</td>
+    <td width="22%" valign="MIDDLE" bgcolor="#ccffcc">
+    <p align="CENTER">No</td>
+  </tr>
+  <tr>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">1</td>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">0</td>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">1</td>
+    <td width="22%" valign="MIDDLE" bgcolor="#ccffcc">
+    <p align="CENTER">No</td>
+  </tr>
+  <tr>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">1</td>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">1</td>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">0</td>
+    <td width="22%" valign="MIDDLE" bgcolor="#ccffcc">
+    <p align="CENTER">No</td>
+  </tr>
+  <tr>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">1</td>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">0</td>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">0</td>
+    <td width="22%" valign="MIDDLE" bgcolor="#ccffcc">
+    <p align="CENTER">Yes</td>
+  </tr>
+  <tr>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">0</td>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">1</td>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">1</td>
+    <td width="22%" valign="MIDDLE" bgcolor="#ccffcc">
+    <p align="CENTER">No</td>
+  </tr>
+  <tr>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">0</td>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">0</td>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">1</td>
+    <td width="22%" valign="MIDDLE" bgcolor="#ccffcc">
+    <p align="CENTER">Yes</td>
+  </tr>
+  <tr>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">0</td>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">1</td>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">0</td>
+    <td width="22%" valign="MIDDLE" bgcolor="#ccffcc">
+    <p align="CENTER">Yes</td>
+  </tr>
+  <tr>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">0</td>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">0</td>
+    <td width="26%" valign="MIDDLE" bgcolor="#ccecff">
+    <p align="CENTER">0</td>
+    <td width="22%" valign="MIDDLE" bgcolor="#ccffcc">
+    <p align="CENTER">Yes</td>
+  </tr>
+</table>
+        </center>
+      </div>
+      <p align="center">
+<u><i>
+Table 1.0 - all possible combinations of plant poison genes and their affect
+on a plants edibility, one indicates active gene, and zero indicates inactive
+gene.
+</i></u>
+
+      </p>
+      <p align="left">
+<br>The herbivore is required to learn this classification problem, but retain
+the flexibility of not learning it perfectly. Once learned, the herbivore is
+required to apply the classification to unseen cases in the environment and
+predict whether or not the plants are edible. An effective classification and
+prediction algorithm suited to this problem is the Perceptron learning rule.<br>
+
+<br>
+<u>Why Perceptron</u>
+<br>The Perceptron is a learning algorithm catered to learning problems with a
+small number of binary inputs and a single binary output. Basically a Perceptron
+is a single neuron where inputs are weighted. The sum of the inputs passes
+through a linear transfer function, determining whether or not the neuron will
+fire (output one) or not fire (output zero).
+      </p>
+      <p align="center">
+
+
+<br>
+<img border="0" src="/web/20070830043735im_/http://ict.swin.edu.au/personal/jbrownlee/other/ecosystem/image005.gif" width="328" height="100">
+<br>
+<u><i>Figure 1.4 - Example Perceptron showing plant input variables and classification output</i></u>
+      </p>
+      <p align="left">
+The algorithm has an advantage over other learning algorithms of similar
+nature which is its speed and simplicity, both welcome features in a real-time
+environment. A highly publicized weakness of this algorithm is its inability to
+learn problems which are not linearly separable, forever demonstrated by the XOR
+problem. Non-linearly separable problems are those in which outputs of the
+training cases cannot be separated by a straight line or hyperplane. Fortunately
+the plant poison problem is linearly separable.<br>
+<br>For further understanding of this technique and its strengths and weaknesses
+please refer to [11], [12] and [13]. For a broader understanding of neural
+networks see [14] and [15].<br>
+
+<br>
+<u>Memory and Learning</u>
+<br>The Perceptron is a supervised learning technique meaning that it learns by
+being exposed to samples from the problem domain along with expected outputs.
+The algorithm then trains itself to produce similar outputs from the same
+inputs. The problem now becomes; <i>where do herbivores get example patterns
+from</i>? To solve this a herbivore memory management system was designed to
+allowed herbivores to remember plants they eat from and the result of their
+eating (<i>obtained sustenance</i> or <i>was poisoned</i>).</p>
+      <p align="center">
+<img border="0" src="/web/20070830043735im_/http://ict.swin.edu.au/personal/jbrownlee/other/ecosystem/image006.gif" width="351" height="231">
+<br>
+<u><i>Figure 1.5 - Shows how the memory system and Perceptron is used by the herbivore</i></u>
+      </p>
+      <p align="left">
+The herbivore’s goal selection subsystem can be divided into three main
+sections:<br>
+      </p>
+<ol>
+    <li>Memory storage</li>
+    <li>Training from memory </li>
+    <li>Plant Classification</li>
+</ol>
+
+      <p>
+
+<br>
+<u>Memory Storage</u>
+<br>When a herbivore selects a food goal, it makes a copy of the plant’s details
+and stores it in its state. These details are<br>
+      </p>
+<ul>
+    <li>The unique identity of the plant.</li>
+    <li>The values of all three poison genes.</li>
+</ul>
+
+      <p>
+
+<br>If the herbivore manages to navigate to its selected food goal, it will take
+a number of bites from the plant. Each bite will create a new memory. A memory
+consists of the above details of the current food goal combined with the result
+of taking a bite (gain or lose health). <br>
+<br>Memories are maintained in a queue data structure where new memories are
+added to the end of the queue, possibly popping old memories from the front of
+the queue. This simulates the concept of herbivores remembering a handful of
+food goals and forgetting food goals from a long time ago. If the herbivore
+already has a memory for the plant the memory is updated, otherwise a new memory
+is created. This is not required functionality however it stops the generation
+of too many similar memories.<br>
+
+<br>
+<u>Training from Memory</u>
+<br>This module is responsible for using the remembered goal selections and
+results to train the herbivore’s perceptron. Basically the memory is knowledge
+collected by the herbivore through experience in the simulation. Application of
+this knowledge is provided by teaching the perceptron structure to recognize
+good and bad food goals based on the value of a plants poison genes. Training is
+performed on the creation or update of each memory.<br>
+
+<br>
+<u>Plant selection - flexible food selection</u>
+<br>When a herbivore is hungry it evaluates its surroundings and constructs a
+list of all plants near by. Each plant is then evaluated by the herbivores
+Perceptron in a read-only fashion. The Perceptron will classify one or more
+plants as good food goals and the herbivore will randomly select one of these
+good food goals to eat from. If the Perceptron fails to classify any food goals
+as edible a random plant is selected to eat from the list.<br>
+
+<br>
+<u>Training Time and Training Patterns</u>
+<br>To get an idea of the poison plant problem and the Perceptrons ability to
+learn it, I performed a number of experiments using the Perceptron learning
+algorithm external to the proposed system. The goal was to gain an understanding
+into how difficult the problem was in terms of the number of training epochs and
+the number of patterns required to learn and generalize the problem. <br>
+<br>This information was determined to be critical to the success of the
+Perceptron implementation. A herbivore can only capture so many patterns during
+its lifetime, and only so many of those patterns will be unique. The number of
+training epochs must be minimized. Large numbers of training iterations means
+that too much processor time is allocated to a single task, which may cause
+pauses in the simulation and restrict the maximum number of agents the ecosystem
+can support.<br>
+<br>The following table is a listing of results averaged over 10 tests, each test
+stopping when all training patterns were learned successfully.<br>
+
+      </p>
+
+      <div align="center">
+        <center>
+
+<table border cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+  <tr>
+    <td width="27%" valign="MIDDLE" bgcolor="#808080" align="center">
+    <font color="#FFFFFF" size="2"><b>% of
+    Training / Test Patterns</b></font></td>
+    <td width="9%" valign="MIDDLE" bgcolor="#808080" align="center">
+    <font color="#FFFFFF" size="2"><b>Epochs</b></font></td>
+    <td width="32%" valign="MIDDLE" bgcolor="#808080" align="center">
+    <font color="#FFFFFF" size="2"><b>Average
+    % Correct (Test Patterns)</b></font></td>
+    <td width="31%" valign="MIDDLE" bgcolor="#808080" align="center">
+    <font color="#FFFFFF" size="2"><b>Average
+    % Correct (All Patterns)</b></font></td>
+  </tr>
+  <tr>
+    <td width="27%" valign="MIDDLE" align="center"><font size="2">25% / 75%</font></td>
+    <td width="9%" valign="MIDDLE" align="center"><font size="2">1.1</font></td>
+    <td width="32%" valign="MIDDLE" align="center"><font size="2">48.33%</font></td>
+    <td width="31%" valign="MIDDLE" align="center"><font size="2">61.25%</font></td>
+  </tr>
+  <tr>
+    <td width="27%" valign="MIDDLE" align="center"><font size="2">50% / 50%</font></td>
+    <td width="9%" valign="MIDDLE" align="center"><font size="2">4</font></td>
+    <td width="32%" valign="MIDDLE" align="center"><font size="2">57.50%</font></td>
+    <td width="31%" valign="MIDDLE" align="center"><font size="2">78.75%</font></td>
+  </tr>
+  <tr>
+    <td width="27%" valign="MIDDLE" align="center"><font size="2">75% / 25%</font></td>
+    <td width="9%" valign="MIDDLE" align="center"><font size="2">5</font></td>
+    <td width="32%" valign="MIDDLE" align="center"><font size="2">60%</font></td>
+    <td width="31%" valign="MIDDLE" align="center"><font size="2">90%</font></td>
+  </tr>
+  <tr>
+    <td width="27%" valign="MIDDLE" align="center"><font size="2">100% / 100%</font></td>
+    <td width="9%" valign="MIDDLE" align="center"><font size="2">5.4</font></td>
+    <td width="32%" valign="MIDDLE" align="center"><font size="2">100%</font></td>
+    <td width="31%" valign="MIDDLE" align="center"><font size="2">100%</font></td>
+  </tr>
+</table>
+
+        </center>
+      </div>
+
+      <p>
+
+<br>The table shows that on average, 6 epochs are enough to generalize the
+problem sufficiently to classify approximately 50% of the unseen patterns
+correctly when using from between 25% to 75% of the possible unique gene
+combinations as training data.<br>
+<br>It is expected the herbivore would be able to collect roughly 10 patterns
+during its lifetime and that at least half of those collected patters would be
+unique, providing the herbivore with an estimated 60% chance of classifying
+unseen plants correctly and a 90% chance of classifying any given plant
+correctly. These estimations are the best case scenarios. A herbivore that is
+able to only capture 2 unique training samples has a 60% an estimated chance of
+classifying any given plant correctly. <br>
+<br>None of these estimations take the herbivores ability to inherit learned
+behaviour into account, which is expected to give the herbivore a jumpstart on
+good classifications and possibly inherit features which need to be unlearned.<br>
+<br>Safe values for the max epochs and herbivore memory size were selected as
+follows:<br>
+      </p>
+<ul>
+    <li>Maximum training epochs per training: 10 (almost double required)</li>
+    <li>Maximum herbivore memories: 6 (75% of all possible unique patterns)</li>
+</ul>
+
+      <p>
+
+<br>
+<b>The Ecosystem</b>
+<br>An environment was constructed, specifically designed to test the ecosystem.
+I’m no artist so it’s laughably simple. It contains three points from which an
+initial population can be started. The level provides a high ceiling to allow
+seeds to power up into the air, and an observation platform is provided for the
+user to oversee the action.</p>
+
+      <p align="center">
+
+<img border="0" src="/web/20070830043735im_/http://ict.swin.edu.au/personal/jbrownlee/other/ecosystem/image007.jpg" width="240" height="169">
+<br>
+<u><i>Figure 1.6 - a screenshot taken of the test environment showing the central island structure and the observation tower.</i></u>
+      </p>
+
+      <p align="left">
+
+The agents were implemented using game models and textures from the Quake II
+platform. A plant is represented as a round ball. Upon reaching maturity they
+transform into a small cylindrical shape. Poisonous plants are represented by a
+purple shell effect.<br>
+<br>Herbivores have the appearance of a mechanical creature which runs around on
+all fours. When feeding from a plant they extend a tongue / tentacle. The
+herbivores current feed and roam goals are represented by a green line extending
+from the herbivore to its goal. Healthy herbivores are coated in a green shell,
+sick herbivores are shown by a red shell.</p>
+
+      <p align="center">
+
+<img border="0" src="/web/20070830043735im_/http://ict.swin.edu.au/personal/jbrownlee/other/ecosystem/image008.jpg" width="312" height="158">
+<br>
+<u><i>Figure 1.7 - Shows a number of plant’s in their seed state. Poisonous seeds are represented in purple.
+The scene contains two herbivores, one of which is sick; designated by a red shell.</i></u>
+      </p>
+
+      <p align="left">
+
+Both the herbivores and plants have a lot of constants which are used to
+manage and manipulate various behaviours. These are stored in a configuration
+file called "agents.ini". Locating suitable values for these parameters is where
+half the fun lies in tweaking the simulation, and due to the flexibility of the
+system it is possible for one askew value to have a dramatic impact on the way
+the simulation progresses. <br>
+
+<br>
+<u>Ecosystem Observations</u>
+<br>This section is devoted to the meat of this experiment - the observations. By
+far the best part of a project like this for me is in the tweak-and-observe
+cycle which I can get lost in for hours at a time. Small changes are all that is
+usually required to produce very different effects in things like food
+selection, population migration and diversity. The following are a number of
+small interesting situations observed during the evaluation of my many tweaks:
+<br>
+      </p>
+<ul>
+    <li>For one species to thrive, it relies on the other to thrive. Seen many
+    times in the ecosystem, a required minimum number of plants are required to
+    maintain a small population of herbivores and a certain number of herbivores
+    are required to maintain a population of plants.</li>
+    <li>Some interesting migration behaviour was exposed where upon spawning a
+    starter kit of agents into the world; some herbivores would die at one spawn
+    point. The reduced number of herbivores at the spawn point meant that they
+    couldn’t maintain all of the plants. Many of the plants would then die in
+    turn and the herbivore would end up having to migrate to another
+    plant/herbivore cluster. This would happen a few times in a run as plant
+    populations expanded and contracted, moving their centroids across the
+    environment.</li>
+    <li>A low mutation rate in plants (approximately 10%) would cause a lack of
+    diversity in the patterns individual herbivores were exposed to. In turn
+    herbivores would over-learn what a good plant looks like causing plant
+    populations quickly move to majority non-poisonous. It was quickly
+    determined that the simulation parameters had to be tweaked overly against
+    the herbivores for it to strain its classification ability.</li>
+    <li>Initial runs saw the herbivores very quickly learn what a non-poisonous
+    plant looks like and within minutes evolved the poison purple plants out of
+    existence. The herbivores would get into a comfortable state where they
+    would all just sit in amongst healthy plants, feeding as needed and not
+    having to move around at all. A quick fix to mix things up was to increase
+    the number of seeds produced in each plant reproduction, drop hungry/not
+    hungry thresholds and dramatically increase the mutation rate to 35% in an
+    attempt at increasing plant diversity. The affect was the herbivores from
+    the starter kit found if very difficult to survive initially, but those that
+    did met a tougher existence.</li>
+    <li>An interesting question came to mind; does the herbivore’s speedy
+    descent into developing a robust ability to classify good feed goals show
+    the strength of the Perceptron as a classification technique, weaknesses in
+    the management of plant diversity or the effect of intelligent selection?
+    It’s a difficult question to answer, and it is a weakness of the system of
+    not being able to address it directly. I believe that in part it’s a
+    combination of all three elements. The problem is simple, thus the
+    Perceptron learns it effortlessly. Intelligent selection causes poor
+    management of plant diversity. To cope, plants mutation needs to be cranked
+    right up to re-introduce a level of non-determinism.</li>
+    <li>It would be expected that when a plant population switches over to
+    become predominately non-poisonous, that herbivores would over-learn, and
+    treat all food goals as edible. It is seen to some degree, but the effect is
+    not sufficient to hurt herbivore numbers and they quickly relearn the
+    differents.</li>
+    <li>Populations never stay in the one place for long. Within minutes they
+    begin their slow journey across the map, always in surprising directions. A
+    common plant movement behaviour is the splitting of clusters. An initial
+    population will diverge into two separate populations slowly moving across
+    the landscape like tectonic plates as their seeds push further and further
+    out. Obviously the herbivores follow the food. Breakaway microcosms continue
+    to drift, eventually colliding - recombining their genetic material adding
+    another thought provoking layer for feature specialization and managing
+    diversity.</li>
+    <li>Dense concentrations of plants and herbivores would increase their
+    numbers at a faster rate than those population clusters of less density.
+    Simulation population maximums meant that as one population rapidly
+    expanded, other smaller populations would dwindle, many times blinking out
+    of existence. It was then required of super population to diverge and
+    repopulate the barren areas again.</li>
+    <li>As populations expand and split, very dense and compact areas are seen
+    where many plants and herbivores operate in a confined area. In the gulf, or
+    the wake where a population has passed through, there are sporadic plants
+    and the odd roaming nomad herbivore that feed from them. Watching this
+    closely, the nomads consist of herbivores leaving the denser population and
+    navigating the gulf for a while. Heading back in to the denser population,
+    they are then later replaced by other herbivores. This behaviour mostly
+    occurs in the central island of the map, as populations separate and
+    gravitate towards the edges.</li>
+    <li>The corner start points made for interesting situations where
+    populations would separate into an upper level on the rock and a lower level
+    in the water. They would move back and forth in parallel, synchronized at
+    their respective levels. A continual flow of migrants would launch between
+    the populations fuelling the movement.</li>
+</ul>
+
+      <p align="center">
+
+<img border="0" src="/web/20070830043735im_/http://ict.swin.edu.au/personal/jbrownlee/other/ecosystem/image009.jpg" width="432" height="202">
+<br>
+<u><i>Figure 1.8 - Shows a dense population of plants and feeding herbivores.</i></u>
+      </p>
+
+      <p align="left">
+
+<u>Proposed Feature Enhancements</u>
+<br>The program is not perfect. It was constructed over a short period of time
+and there are number of features and feature enhancements that could make for a
+more enjoyable experience. This section mentions a handful of features I’d have
+liked to see implemented:<br>
+      </p>
+<ul>
+    <li>The ability to save a simulation at any point would be invaluable. It
+    would allow the current state to be preserved and possibly shared.</li>
+    <li>There are many configuration variables in the INI file which control
+    the agent’s behaviour. A user interface or menu system operated within the
+    game would allow these parameters to be adjusted dynamically to take
+    immediate effect. This combined with the above save feature would mean a
+    simulation could be saved at a specific stage, then re-run with a number of
+    different settings to compare outcomes.</li>
+    <li>The simulation can be paused at any time, freezing the ecosystem which
+    is a handy feature. But simulations can run for a long time and usually it
+    takes many generations until the desired effects are produced. The addition
+    of speeding up time would allow you to fast forward to the desired
+    generation or run a simulation much longer than is currently possible.</li>
+    <li>The simple navigation code reused from the monster framework has caused
+    the death of countless herbivores. The functions could be improved, but I
+    believe that more effective goal selection could be used. Perhaps taking the
+    herbivores proximity to a plant as another attribute to learn would mean it
+    would be learned automatically by the herbivores.</li>
+    <li>Sticky plants get stuck in the strangest places sometimes. I’ve seen
+    examples where plants just hover in the air. Improvement to surface
+    evaluation in the seed state could be made. It would also be nice to see
+    plants orientate themselves to their surface. So many times I’ve seen
+    herbivores get born and then stuck on top of plants. Making plants non-solid
+    would improve the simulation greatly, giving the straight-line navigation
+    code of the herbivores a break and providing free movement in heavily
+    populated areas.</li>
+    <li>A vital feature missing from the program is visualization of the
+    systems state. Data could be displayed on the player head-up display in
+    graphs and numeric form. Data such as:</li>
+    <ul>
+        <li>Current population size of each species</li>
+        <li>Current maximum and minimum generation of each spices</li>
+        <li>Average Health</li>
+        <li>Average Age</li>
+        <li>Number of children and adult agents</li>
+        <li>Average number of training iterations for the Perceptron</li>
+    </ul>
+    <li>The original vision for the system was to have one more species of
+    agent; the carnivore. Carnivores would roam the environment in search of
+    herbivore’s to feast on, adding an interesting predictor / prey arrangement.
+    Sadly due to time restrictions this feature was not included and would
+    provide a practical exercise for the programming inclined reader.</li>
+</ul>
+
+      <p>
+
+<u>Next Step: Learning in real time environments</u>
+<br>Though this simulation was a trivial example it did show an example of how to
+achieve learning in a real-time environment and some of the issues involved such
+as pattern diversity and population diversity. Though the program is simple, the
+effectiveness of learning was demonstrated.<br>
+<br>A next easy step could be to expand the current application. Allow herbivores
+to learn more about their food, parameters such as:<br>
+      </p>
+<ul>
+    <li>proximity to plant to allow learning that close food is good</li>
+    <li>health of plant so only healthy plants are eaten from</li>
+    <li>maturity of plant so that an attempt is made to eat from mature plants
+    to give more chance for pollination</li>
+    <li>whether or not a herbivore has eaten form the plant before, in an
+    attempt to manage over eating of the same plants</li>
+</ul>
+
+      <p>
+
+Plants could also benefit from encoding more relevant parameters such as: </p>
+<ul>
+    <li>velocity to travel when spawned as a seed</li>
+    <li>length of time to stay in sprout state before becoming an adult</li>
+    <li>surfaces which can be grown on, possibly to allow plants to grow on
+    each other like coral</li>
+</ul>
+
+      <p>
+
+The area that I find most fascinating is determining how much of an agents’
+state machine can be replaced or intergraded with connectionist structures. The
+herbivore has only its goal classification managed by a single Perceptron, and
+proved to be most effective. It would not be too difficult a task to replace
+other subsystems and decision making function with small multiplayer networks.
+From there the very triggers between states could again be replaced by small
+networks allowing for learned response to stimuli.<br>
+
+<br>Interesting, if not unoriginal ideas [16], but by using the concepts
+demonstrated in this article, they could be most achievable. The specific
+problems need to be identified, abstracted and solved effectively. This was
+shown with goal selection by testing the chosen structure externally from the
+application to determine an optimal number of training patterns to learn the
+problem and the number of iterations required to reproduce those training
+patterns.<br>
+
+
+<br>
+<u>Conclusion</u>
+<br>We have covered a lot of ground from the design of the agents state to the
+implementation of learning algorithms, and finally to the system observations
+and ideas for the future. A simple society was constructed with relatively small
+population sizes compared to well known alife simulations [17]. Intuitive
+concepts for the managing of learning in a real-time environment were
+demonstrated through practical design and implementation of both a Genetic
+Algorithm and Perceptron.<br>
+<br>Those readers with the computer game Quake II can download the program and
+all its source code from [18]. I’m interested to see what kind of wacky
+simulations readers are able to generate and the parameters which sparked them.
+For those with programming background you’ll find the source code commented like
+a novel, with a reasonable design, decoupling systems such as the herbivore from
+its goal selection, goal selection from its perception and the plants from the
+DNA manipulation. This will allow easy replacement of subsystems with little
+effect on existing code.</p>
+
+      <p>
+
+<b>Download</b></p>
+      <ul>
+        <li>The binary Quake II modification can be downloaded here:
+        <a href="ecosystem-1.0-bin.zip">ecosystem-1.0-bin.zip</a></li>
+        <li>The source code for the modification can be downloaded from here:
+        <a href="ecosystem-1.0-src.zip">ecosystem-1.0-src.zip</a></li>
+      </ul>
+
+      <p>
+
+<b>Bibliography</b>
+<br>[1] Wator, Not mine, but a great example applet, though I recommend reducing size to 5500: <a href="https://web.archive.org/web/20070830043735/http://www.leinweb.com/snackbar/wator/">Link</a>
+<br>[2] Craig Reynolds Boids: <a href="https://web.archive.org/web/20070830043735/http://www.red3d.com/cwr/boids">Link</a>
+<br>[3] Quake II Computer Game: <a href="https://web.archive.org/web/20070830043735/http://www.idsoftware.com/games/quake/quake2/">Link</a>
+<br>[4] id Software: <a href="https://web.archive.org/web/20070830043735/http://www.idsoftware.com/">Link</a>
+<br>[5] Quake II Computer Game Source Code: <a href="https://web.archive.org/web/20070830043735/ftp://ftp.idsoftware.com/idstuff/source/q2source-3.21.zip">Link</a>
+<br>[6] GNU General Public License (GPL): <a href="https://web.archive.org/web/20070830043735/http://www.gnu.org/copyleft/gpl.html">Link</a>
+<br>[7] Inside 3D tutorials for Quake II: <a href="https://web.archive.org/web/20070830043735/http://www.inside3d.com/q2tut/">Link</a>
+<br>[8] The Quake Developers Library Site Offline Tutorials: <a href="https://web.archive.org/web/20070830043735/http://www.planetquake.com/qdevels/files/dtutorials.zip">Link</a>
+<br>[9] Open source Quake Development: <a href="https://web.archive.org/web/20070830043735/http://quakesrc.org/">Link</a>
+<br>[10] Genetic Algorithms FAQ: <a href="https://web.archive.org/web/20070830043735/http://www-2.cs.cmu.edu/Groups/AI/html/faqs/ai/genetic/top.html">Link</a>
+<br>[11] Generation5.com, Perceptrons, <a href="https://web.archive.org/web/20070830043735/http://www.generation5.org/perceptron.shtml">Link</a>
+<br>[12] Muchele D. Estebon, Perceptrons: An Associative Learning Network, 1997, <a href="https://web.archive.org/web/20070830043735/http://ei.cs.vt.edu/~history/Perceptrons.Estebon.html">Link</a>
+<br>[13] Omri Weisman &amp; Ziv Pollack, The Perceptron, 1995, <a href="https://web.archive.org/web/20070830043735/http://www.cs.bgu.ac.il/~omri/Perceptron/">Link</a>
+<br>[14] Neural-nets Usenet News FAQ: <a href="https://web.archive.org/web/20070830043735/ftp://ftp.sas.com/pub/neural/FAQ.html">Link</a>
+<br>[15] AI-Depot.com, Neural Network Warehouse, <a href="https://web.archive.org/web/20070830043735/http://neuralnetworks.ai-depot.com/">Link</a>
+<br>[16] [Finite State Machines and neural nets: the inception], McCulloch and Pitts’ neural logical calculus: <a href="https://web.archive.org/web/20070830043735/http://www.dlsi.ua.es/~mlf/nnafmc/pbook/node10.html">Link</a>
+<br>[17] Seeing around corner, Jonathan Ranch the Atlantic Online, April 2002, <a href="https://web.archive.org/web/20070830043735/http://www.theatlantic.com/issues/2002/04/rauch.htm">Link</a>
+<br>
+<br>
+      </p>
+
+      <p>
+
+&nbsp;</p>
+
+      <p>
+
+&nbsp;</p>
+      </td>
+    </tr>
+  </table>
+  </center>
+</div>
+
+		<p>
+		<a href="https://web.archive.org/web/20070830043735/http://www.it.swin.edu.au/personal/jbrownlee">Home</a>
+		</p>
+		<script src="https://web.archive.org/web/20070830043735js_/http://www.google-analytics.com/urchin.js" type="text/javascript">
+		</script>
+		<script type="text/javascript">
+		_uacct = "UA-1305392-1";
+		urchinTracker();
+		</script>
+
+</body>
+
+</html><!--
+     FILE ARCHIVED ON 04:37:35 Aug 30, 2007 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 22:59:26 Jul 14, 2023.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  captures_list: 144.895
+  exclusion.robots: 0.202
+  exclusion.robots.policy: 0.191
+  cdx.remote: 0.064
+  esindex: 0.01
+  LoadShardBlock: 111.146 (3)
+  PetaboxLoader3.datanode: 128.969 (4)
+  load_resource: 117.965
+  PetaboxLoader3.resolve: 57.103
+-->

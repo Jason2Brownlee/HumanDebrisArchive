@@ -1,0 +1,143 @@
+A:visited
+{
+    COLOR: white;
+    TEXT-DECORATION: none
+}
+A:hover
+{
+    COLOR: lightblue; 
+    TEXT-DECORATION: none
+}
+A:link
+{
+    COLOR: white;
+    TEXT-DECORATION: none
+}
+A:active
+{
+    COLOR: white;
+    TEXT-DECORATION: none
+}
+P
+{
+    FONT-SIZE: 8pt;
+    COLOR: gray;
+    FONT-FAMILY: Arial, Tahoma
+}
+B
+{
+    FONT-SIZE: 8pt;
+    COLOR: gray;
+    FONT-FAMILY: Arial, Tahoma
+}
+H1
+{
+    FONT-SIZE: 10pt;
+    COLOR: white;
+    FONT-FAMILY: Garamond
+}
+H2
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12pt;
+    COLOR: seagreen;
+    FONT-FAMILY: Garamond
+}
+TH
+{
+    FONT-SIZE: 10pt;
+    COLOR: gray;
+    FONT-FAMILY: Garamond
+}
+TD
+{
+    FONT-SIZE: 8pt;
+    COLOR: gray;
+    FONT-FAMILY: Arial, Tahoma
+}
+
+LI
+{
+    FONT-SIZE: 8pt;
+    COLOR: gray;
+    FONT-FAMILY: Arial, Tahoma;
+    LIST-STYLE-TYPE: square
+}
+TABLE
+{
+    FONT-SIZE: 8pt;
+    COLOR: gray;
+    FONT-FAMILY: Arial, Tahoma
+}
+STRONG
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    COLOR: white;
+    FONT-FAMILY: Arial, Tahoma
+}
+.tableheader
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10pt;
+    COLOR: white;
+    FONT-FAMILY: Arial, Tahoma;
+    BACKGROUND-COLOR: midnightblue
+}
+.code
+{
+    FONT-SIZE: 8pt;
+    MARGIN-LEFT: 20px;
+    COLOR: white;
+    FONT-FAMILY: Courier
+}
+.note
+{
+    FONT-SIZE: 7pt;
+    FONT-FAMILY: Arial, Tahoma
+}
+TD.info_map_detail
+{
+    PADDING-RIGHT: 4px;
+    PADDING-LEFT: 4px;
+    FONT-SIZE: 8pt;
+    PADDING-BOTTOM: 4px;
+    WIDTH: 70%;
+    COLOR: gray;
+    PADDING-TOP: 4px;
+    FONT-FAMILY: Arial, Tahoma
+}
+TD.info_map_header
+{
+    PADDING-RIGHT: 4px;
+    PADDING-LEFT: 8px;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12pt;
+    PADDING-BOTTOM: 4px;
+    WIDTH: 30%;
+    COLOR: seagreen;
+    PADDING-TOP: 4px;
+    FONT-FAMILY: Garamond;
+    TEXT-ALIGN: left
+}
+
+/*
+     FILE ARCHIVED ON 02:58:43 Nov 22, 2001 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 20:12:18 Jul 15, 2023.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  captures_list: 113.118
+  exclusion.robots: 0.198
+  exclusion.robots.policy: 0.186
+  RedisCDXSource: 5.202
+  esindex: 0.01
+  LoadShardBlock: 89.693 (3)
+  PetaboxLoader3.datanode: 81.452 (4)
+  PetaboxLoader3.resolve: 565.872 (2)
+  load_resource: 605.96
+*/

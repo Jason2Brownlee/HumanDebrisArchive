@@ -1,0 +1,288 @@
+<script type="text/javascript" src="/_static/js/bundle-playback.js?v=1WaXNDFE" charset="utf-8"></script>
+<script type="text/javascript" src="/_static/js/wombat.js?v=txqj7nKC" charset="utf-8"></script>
+<script type="text/javascript">
+  __wm.init("https://web.archive.org/web");
+  __wm.wombat("http://www.ict.swin.edu.au:80/personal/jbrownlee/other/games/tutorials/GuidedRockets.html","20071210024407","https://web.archive.org/","web","/_static/",
+	      "1197254647");
+</script>
+<link rel="stylesheet" type="text/css" href="/_static/css/banner-styles.css?v=S1zqJCYt" />
+<link rel="stylesheet" type="text/css" href="/_static/css/iconochive.css?v=qtvMKcIJ" />
+<!-- End Wayback Rewrite JS Include -->
+<script id="hostedAdCode"></script><script src="https://web.archive.org/web/20071210024407js_/http://web.archive.org/web/20030114161657js_/http://ads.gamespy.com/jserver/SITE=PQ/AREA=HOSTED/GENRE=ACTION/TIER=3/AAMSZ=PRESTITIAL?3124993032"></script><!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<base href="https://web.archive.org/web/20071210024407/http://www.planetquake.com/humandebris/tutorials/GuidedRocket-Tutorial/GuidedRockets.html">
+
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <meta name="Author" content="Jason [ Zygote ] Brownlee">
+   <meta name="Description" content="Change the Rocket Launcher to Fire Guided Rockets">
+   <title>Laser Guided Rockets</title>
+</head>
+<body text="#C0C0C0" bgcolor="#000000" link="#3366FF" vlink="#3366FF" alink="#FF0000">
+<b><font face="Verdana"><font color="#FFFFFF">Change
+the Rocket Launcher to Fire Guided Rockets.</font></font></b>
+<br><font face="Verdana"><font size="-1"><font color="#FFFFFF">Code Tutorial
+- by</font> <a href="https://web.archive.org/web/20071210024407/mailto:hop_cha@hotmail.com">Zygote</a> (<a href="https://web.archive.org/web/20071210024407/http://www.planetquake.com/humandebris">HUMAN
+DEBRIS</a>)</font></font>
+<br>&nbsp;
+<p><b><font face="Verdana"><font color="#FFFFFF"><font size="-1">What the
+hell is "Guided Rockets"?</font></font></font></b>
+<br><font face="Verdana"><font size="-1">If you have ever played Half-Life,
+then the concept should be familiar. Think of your crosshair as a laser
+pointer. Once a rocket is fired, where ever you point your crosshair, the
+rocket will head in that direction. The result of this tutorial is a rocket
+launcher similar to the one in Half-Life (not exactly the same though).</font></font>
+<p><font face="Verdana"><font size="-1">'Guided Rockets' are included as
+one of the 5 rocket launchers in <a href="https://web.archive.org/web/20071210024407/http://www.planetquake.com/humandebris">Human
+Debris</a> mod <b>I Love Rockets</b></font></font>
+<p><font face="Verdana"><font size="-1"><b><font color="#FFFFFF">Note:</font></b>
+I am not the worlds greatest programmer by a long shot, so don't go crazy
+if you see a bit of bad programming in this tutorial. I would appreciate
+any suggested improvements or corrections you can offer. The code has been
+tested extensively and works fine.</font></font>
+<br><font face="Verdana"><font size="-1">In doing this tutorial I assume
+you know how to compile the source, and have played with the code before.</font></font>
+<p><font face="Verdana"><font size="-1"><b><font color="#FFFFFF">Thanks:</font></b>
+I studied the <a href="https://web.archive.org/web/20071210024407/http://quakestyle.telefragged.com/quake3/tutorial12.htm">Homing
+Rockets</a> tutorial at <a href="https://web.archive.org/web/20071210024407/http://quakestyle.telefragged.com/">QuakeStyle</a>,
+and used some of its code in my G_GuideMissile() function.</font></font>
+<p><font face="Verdana"><font size="-1">Okay, on with the tutorial.</font></font>
+<br><font face="Verdana"><font size="-1">This is a server side modification.
+You can easily add client side code for a "real" laser pointer if you want.</font></font>
+<p><b><font face="Verdana"><font color="#FFFFFF"><font size="-1">Modified
+File:</font></font></font></b>
+<br><font face="Verdana"><font size="-1"><a href="#g_missile.c">g_missile.c</a></font></font>
+<br><font face="Verdana"><font size="-1">Yes, that's right. You only have
+to change the code in one file!</font></font>
+<br>&nbsp;
+<p><a name="g_missile.c"></a><b><font face="Verdana"><font color="#FFFFFF"><font size="-1">g_missile.c</font></font></font></b>
+<br><font face="Verdana"><font size="-1">Open g_missile.c and find the following
+code:</font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">/*</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">=================</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">fire_rocket</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">=================</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">*/</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">gentity_t
+*fire_rocket (gentity_t *self, vec3_t start, vec3_t dir) {</font></font></font>
+<p><font face="Verdana"><font size="-1">This code marks the start of the
+fire_rocket function.</font></font>
+<p><font face="Verdana"><font size="-1">Go down a few lines and replace these
+two:</font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;bolt-&gt;nextthink
+= level.time + 10000;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;bolt-&gt;think
+= G_ExplodeMissile;</font></font></font>
+<p><font face="Verdana"><font size="-1">With these three lines:</font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;bolt-&gt;nextthink
+= level.time + 10;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;bolt-&gt;think
+= G_GuideMissile;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;bolt-&gt;wait
+= level.time + 5000;</font></font></font>
+<p><font face="Verdana"><font size="-1">These lines tell the rocket to think
+10ms after spawning. When the rocket thinks it will call G_GuideMissile.
+The last line allows us to explode the rocket 5 seconds after the rocket
+has spawned into the world (for insurance purposes).</font></font>
+<p><font face="Verdana"><font size="-1">Okay, above (before) the fire_rocket()
+function, we need to place our new G_GuideMissile() function.</font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">/*</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">=================</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">G_GuideMissile&nbsp;
+-- ZYGOTE</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">=================</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">*/</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">void G_GuideMissile(
+gentity_t *ent ) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;vec3_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+dir, forward, right, up;</font></font></font>
+<br>&nbsp;
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;if (ent-&gt;parent-&gt;client-&gt;ps.pm_type
+== PM_DEAD) { // if the owner is dead</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; //
+normal rocket again for 2 seconds</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; ent-&gt;nextthink
+= level.time + 2000;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; ent-&gt;think
+= G_ExplodeMissile;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; return;</font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;} else
+{ // owner is alive</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; ent-&gt;s.pos.trTime
+= level.time;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; VectorCopy(ent-&gt;r.currentOrigin,
+ent-&gt;s.pos.trBase );</font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; // Where
+is my owner looking?</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; AngleVectors
+(ent-&gt;parent-&gt;client-&gt;ps.viewangles, forward, right, up);</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; //
+Copy foward into dir</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; VectorCopy(forward,
+dir);</font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; VectorScale
+(dir,VectorLength(ent-&gt;s.pos.trDelta)*1.1,ent-&gt;s.pos.trDelta);</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; //
+trDelta is actual vector for movement.Because the rockets slow down</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; //
+when swing large angle,so accelalate them.</font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; SnapVector
+(ent-&gt;s.pos.trDelta); // save net bandwidth</font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; if (level.time
+&gt; ent-&gt;wait) { // kill it after 5 seconds</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+ent-&gt;nextthink = level.time + 10;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+ent-&gt;think = G_ExplodeMissile;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+return;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; }</font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; ent-&gt;nextthink
+= 50; // Think again in 50ms</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;}</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">}</font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">//=============================================================================</font></font></font>
+<br>&nbsp;
+<p><b><font face="Verdana"><font size="-1">Analysis:</font></font></b>
+<br><font face="Verdana"><font size="-1">This function is not perfect. If
+you think you can improve it, please send me the correction.</font></font>
+<p><font face="Verdana"><font size="-1">If the owner of the rocket is dead,
+the rocket will keep going in its current direction and explode after 2
+seconds unless it hits something.</font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">if (ent-&gt;parent-&gt;client-&gt;ps.pm_type
+== PM_DEAD) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; ent-&gt;nextthink
+= level.time + 2000;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; ent-&gt;think
+= G_ExplodeMissile;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; return;</font></font></font>
+<p><font face="Verdana"><font size="-1">The rockets owner is alive, determine
+where they are looking and copy the owners forward direction into our new
+vector 'dir'.</font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; AngleVectors
+(ent-&gt;parent-&gt;client-&gt;ps.viewangles, forward, right, up);</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; VectorCopy(forward,
+dir);</font></font></font>
+<p><font face="Verdana"><font size="-1">This line copies the new direction
+to the rocket, and accelerates the rocket by 1.1. The reason it is accelerated
+is because when a rocket changes direction it slows down.</font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">VectorScale
+(dir,VectorLength(ent-&gt;s.pos.trDelta)*1.1,ent-&gt;s.pos.trDelta);</font></font></font>
+<p><font face="Verdana"><font size="-1">This is a little bit of insurance
+so the rocket will explode after it has existed in the world for 5 seconds
+regardless of anything else.</font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; if
+(level.time &gt; ent-&gt;wait) { // kill it after 5 seconds</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+ent-&gt;nextthink = level.time + 10;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+ent-&gt;think = G_ExplodeMissile;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+return;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; }</font></font></font>
+<p><font face="Verdana"><font size="-1">This line makes the rocket think
+(execute <font color="#C0C0C0">G_GuideMissile) again in 50ms time.</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">ent-&gt;nextthink
+= 50;</font></font></font>
+<br>&nbsp;
+<p><b><font face="Verdana"><font color="#FFFFFF"><font size="-1">That's it!</font></font></font></b>
+<br><font face="Verdana"><font size="-1">Compile the code and test out the
+modification on your favorite level with a Rocket Launcher (I suggest q3dm17
+with lots of bots!).</font></font>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+</body>
+
+<!-- SOME SCRIPT SRC'S ON THIS PAGE HAVE BEEN REWRITTEN BY THE WAYBACK MACHINE
+OF THE INTERNET ARCHIVE IN ORDER TO PRESERVE THE TEMPORAL INTEGRITY OF THE SESSION. -->
+
+
+<script language="Javascript">
+<!--
+
+// FILE ARCHIVED ON 20030114161657 AND RETRIEVED FROM THE
+// INTERNET ARCHIVE ON 20070925073102.
+// JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+// ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+// SECTION 108(a)(3)).
+
+   var sWayBackCGI = "https://web.archive.org/web/20071210024407/http://web.archive.org/web/20030114161657/";
+
+   function xResolveUrl(url) {
+      var image = new Image();
+      image.src = url;
+      return image.src;
+   }
+   function xLateUrl(aCollection, sProp) {
+      var i = 0;
+      for(i = 0; i < aCollection.length; i++) {
+         if (typeof(aCollection[i][sProp]) == "string") { 
+          if (aCollection[i][sProp].indexOf("mailto:") == -1 &&
+             aCollection[i][sProp].indexOf("javascript:") == -1) {
+            if(aCollection[i][sProp].indexOf("http") == 0) {
+                aCollection[i][sProp] = sWayBackCGI + aCollection[i][sProp];
+            } else {
+                aCollection[i][sProp] = sWayBackCGI + xResolveUrl(aCollection[i][sProp]);
+            }
+         }
+         }
+      }
+   }
+
+   xLateUrl(document.getElementsByTagName("IMG"),"src");
+   xLateUrl(document.getElementsByTagName("A"),"href");
+   xLateUrl(document.getElementsByTagName("AREA"),"href");
+   xLateUrl(document.getElementsByTagName("OBJECT"),"codebase");
+   xLateUrl(document.getElementsByTagName("OBJECT"),"data");
+   xLateUrl(document.getElementsByTagName("APPLET"),"codebase");
+   xLateUrl(document.getElementsByTagName("APPLET"),"archive");
+   xLateUrl(document.getElementsByTagName("EMBED"),"src");
+   xLateUrl(document.getElementsByTagName("BODY"),"background");
+   var forms = document.getElementsByTagName("FORM");
+   if (forms) {
+       var j = 0;
+       for (j = 0; j < forms.length; j++) {
+              f = forms[j];
+              if (typeof(f.action)  == "string") {
+                 if(typeof(f.method)  == "string") {
+                     if(typeof(f.method) != "post") {
+                        f.action = sWayBackCGI + f.action;
+                     }
+                  }
+              }
+        }
+    }
+
+
+//-->
+</script>
+
+</html><!--
+     FILE ARCHIVED ON 02:44:07 Dec 10, 2007 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 23:00:28 Jul 14, 2023.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  captures_list: 129.083
+  exclusion.robots: 0.157
+  exclusion.robots.policy: 0.147
+  cdx.remote: 0.057
+  esindex: 0.008
+  LoadShardBlock: 82.208 (3)
+  PetaboxLoader3.datanode: 115.164 (4)
+  load_resource: 119.298
+  PetaboxLoader3.resolve: 61.473
+-->

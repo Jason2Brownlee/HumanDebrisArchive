@@ -1,0 +1,103 @@
+Open up bg_pmove.c
+
+Find the Pm_Weapon function.  Add the following code right after "int  addTime;" :
+
+int	addTime;
+int     loseAmmo;  Wraith (Ammunition Managment)
+
+Now, in the same function, find the followinf lines and comment them out:
+
+// take an ammo away if not infinite
+if ( pm->ps->ammo[ pm->ps->weapon ] != -1 ) {
+	pm->ps->ammo[ pm->ps->weapon ]--;
+}
+
+With that out of the way, add this code:
+
+/*
+Wraith (wraith@planetshogo.com)
+Ammunition Managment
+*/
+	
+	loseAmmo = 0;
+
+	if (pm->cmd.buttons & 32) {
+
+	// Alternate Fire
+
+	switch( pm->ps->weapon ) {
+	
+	case WP_RAILGUN:
+		loseAmmo = 1; // Make the Railgun Alt Fire cost 1 ammo
+		break;
+	case WP_LIGHTNING:
+		loseAmmo = 1; // Make the Lightning Alt Fire cost 1 ammo
+		break;
+	case WP_MACHINEGUN:
+		loseAmmo = 1; // Make the Machinegun Alt Fire cost 1 ammo
+		break;
+	case WP_SHOTGUN:
+		loseAmmo = 1; // Make the Shotgun Alt Fire cost 1 ammo
+		break;
+	case WP_GRENADE_LAUNCHER:
+		loseAmmo = 1; // Make the Grenade Launcher Alt Fire cost 10 ammo
+		break;
+	case WP_ROCKET_LAUNCHER:
+		loseAmmo = 1; // Make the Rocket Launcher Alt Fire cost 10 ammo
+		break;
+	case WP_PLASMAGUN:
+		loseAmmo = 1; // Make the Plasmagun Alt Fire cost 10 ammo
+		break;
+	case WP_BFG:
+		loseAmmo = 1; // Make the BFG Alt Fire cost 1 ammo
+		break;
+	}
+
+	} else {
+	
+	// Regular Fire
+
+	switch( pm->ps->weapon ) {
+	
+	case WP_RAILGUN:
+		loseAmmo = 1; // Make the Railgun regular fire cost 1 ammo
+		break;
+	case WP_LIGHTNING:
+		loseAmmo = 1; // Make the Lightning regular fire cost 1 ammo
+		break;
+	case WP_MACHINEGUN:
+		loseAmmo = 1; // Make the Machine regular fire cost 1 ammo
+		break;
+	case WP_SHOTGUN:
+		loseAmmo = 1; // Make the Shotgun regular fire cost 1 ammo
+		break;
+	case WP_GRENADE_LAUNCHER:
+		loseAmmo = 1; // Make the Grenade Launcher regular fire cost 1 ammo
+		break;
+	case WP_ROCKET_LAUNCHER:
+		loseAmmo = 1; // Make the Rocket Launcher regular fire cost 1 ammo
+		break;
+	case WP_PLASMAGUN:
+		loseAmmo = 1; // Make the Plasmagun regular fire cost 1 ammo
+		break;
+	case WP_BFG:
+		loseAmmo = 1; // Make the BFG regular fire cost 1 ammo
+		break;
+	}
+	}
+
+	// Now, take away the ammo
+	// This isn't the best way to do it,
+	// but it solves a few bugs I got when
+	// I just subtracted the ammo from the ammo count
+
+	if (pm->ps->ammo[ pm->ps->weapon ] > loseAmmo) {
+		pm->ps->ammo[ pm->ps->weapon ] -= loseAmmo;
+	} else if (pm->ps->ammo[ pm->ps->weapon ] == loseAmmo) {
+		pm->ps->ammo[ pm->ps->weapon ] = 0;
+	} else if (pm->ps->ammo[ pm->ps->weapon ] < loseAmmo) {
+		return;
+	}
+// End Ammunition Managment
+
+To alter how much ammo is used by the various weapons, simply change the loseAmmo variable.

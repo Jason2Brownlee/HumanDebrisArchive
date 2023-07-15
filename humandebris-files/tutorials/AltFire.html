@@ -1,0 +1,959 @@
+<script type="text/javascript" src="/_static/js/bundle-playback.js?v=1WaXNDFE" charset="utf-8"></script>
+<script type="text/javascript" src="/_static/js/wombat.js?v=txqj7nKC" charset="utf-8"></script>
+<script type="text/javascript">
+  __wm.init("https://web.archive.org/web");
+  __wm.wombat("http://www.ict.swin.edu.au:80/personal/jbrownlee/other/games/tutorials/AltFire.html","20071210024402","https://web.archive.org/","web","/_static/",
+	      "1197254642");
+</script>
+<link rel="stylesheet" type="text/css" href="/_static/css/banner-styles.css?v=S1zqJCYt" />
+<link rel="stylesheet" type="text/css" href="/_static/css/iconochive.css?v=qtvMKcIJ" />
+<!-- End Wayback Rewrite JS Include -->
+<script id="hostedAdCode"></script><script src="https://web.archive.org/web/20071210024402js_/http://web.archive.org/web/20021113133757js_/http://ads.gamespy.com/jserver/SITE=PQ/AREA=HOSTED/GENRE=ACTION/TIER=3/AAMSZ=PRESTITIAL?2053597078"></script><!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<base href="https://web.archive.org/web/20071210024402/http://www.planetquake.com/humandebris/tutorials/AltFire-Tutorial/AltFire.html">
+
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <meta name="Author" content="Jason [ Zygote ] Brownlee">
+   <meta name="Description" content="Alternate Fire Tutorial">
+   <title>Alternate Fire</title>
+</head>
+<body text="#C0C0C0" bgcolor="#000000" link="#3366FF" vlink="#3366FF" alink="#FF0000">
+<b><font face="Verdana"><font color="#FFFFFF">Alternate Fire
+Tutorial.</font></font></b>
+<br><font face="Verdana"><font size="-1"><font color="#FFFFFF">Code Tutorial
+- by</font> <a href="https://web.archive.org/web/20071210024402/mailto:hop_cha@hotmail.com">Zygote</a> (<a href="https://web.archive.org/web/20071210024402/http://www.planetquake.com/humandebris">HUMAN
+DEBRIS</a>)</font></font>
+<p><b><font face="Verdana"><font color="#FFFFFF"><font size="-1">What the
+hell is "Alternate Fire"?</font></font></font></b>
+<br><font face="Verdana"><font size="-1">Alternate Fire means have a secondary
+fire button. This feature is common in other FPS games like Unreal Tournament
+and Half-Life. This tutorial will will take you through the steps involved
+in adding alternate fire to your Quake3 modification.</font></font>
+<p><font face="Verdana"><font size="-1"><b><font color="#FFFFFF">Note:</font></b>
+I am not the worlds greatest programmer by a long shot, so don't go crazy
+if you see a bit of bad programming in this tutorial. I would appreciate
+any suggested improvements or corrections you can offer. The code has been
+tested extensively and works fine.</font></font>
+<p><font face="Verdana"><font size="-1">In doing this tutorial I assume you
+know how to compile the source, and have played with the code before.</font></font>
+<p><font face="Verdana"><font size="-1">Okay, on with the tutorial. This
+is a client and server side modification.</font></font>
+<p><b><font face="Verdana"><font color="#FFFFFF"><font size="-1">Files to
+be modified</font></font></font></b>
+<br><font face="Verdana"><font size="-1"><a href="#bg_pmove.c">bg_pmove.c</a></font></font>
+<br><font face="Verdana"><font size="-1"><a href="#g_active.c">g_active.c</a></font></font>
+<br><font face="Verdana"><font size="-1"><a href="#bg_public.h">bg_public.h</a></font></font>
+<br><font face="Verdana"><font size="-1"><a href="#g_local.h">g_local.h</a></font></font>
+<br><font face="Verdana"><font size="-1"><a href="#g_weapon.c">g_weapon.c</a></font></font>
+<br><font face="Verdana"><font size="-1"><a href="#cg_event.c">cg_event.c</a></font></font>
+<br><font face="Verdana"><font size="-1"><a href="#cg_local.h">cg_local.h</a></font></font>
+<br><font face="Verdana"><font size="-1"><a href="#cg_weapons.c">cg_weapons.c</a></font></font>
+<p><a name="bg_pmove.c"></a><b><font face="Verdana"><font color="#FFFFFF"><font size="-1">bg_pmove.c</font></font></font></b>
+<br><font face="Verdana"><font size="-1">Go down and find the PM_Weapon()
+function.</font></font>
+<br><font face="Verdana"><font size="-1">Locate the following lines:</font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">if ( ! (pm-&gt;cmd.buttons
+&amp; 1) ) {</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; pm-&gt;ps-&gt;weaponTime
+= 0;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; pm-&gt;ps-&gt;weaponstate
+= WEAPON_READY;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; return;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;}</font></font></font>
+<br><font face="Verdana"><font size="-1">This code determines whether the
+attack button is being pressed, if it isn't, the weapon is made ready and
+return.</font></font>
+<p><font face="Verdana"><font size="-1">Change the if statement to:</font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">if ( ! ((pm-&gt;cmd.buttons
+&amp; 1) ||( pm-&gt;cmd.buttons &amp; 32) )) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; pm-&gt;ps-&gt;weaponTime
+= 0;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; pm-&gt;ps-&gt;weaponstate
+= WEAPON_READY;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; return;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;}</font></font></font>
+<br><font face="Verdana"><font size="-1">This will check both the attack
+button (+attack) and our new alt attack (or alt fire button) +button5.</font></font>
+<p><font face="Verdana"><font size="-1">Go down a few lines and find the
+following code:</font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;// fire
+weapon</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;PM_AddEvent(
+EV_FIRE_WEAPON );</font></font></font>
+<p><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;switch(
+pm-&gt;ps-&gt;weapon ) {</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;default:</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;case
+WP_GAUNTLET:</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; addTime
+= 400;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;case
+WP_LIGHTNING:</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; addTime
+= 50;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;case
+WP_SHOTGUN:</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; addTime
+= 1000;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;case
+WP_MACHINEGUN:</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; addTime
+= 100;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;case
+WP_GRENADE_LAUNCHER:</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; addTime
+= 800;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;case
+WP_ROCKET_LAUNCHER:</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; addTime
+= 800;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;case
+WP_PLASMAGUN:</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; addTime
+= 100;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;case
+WP_RAILGUN:</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; addTime
+= 1500;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;case
+WP_BFG:</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">//&nbsp; addTime
+= 100;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; addTime
+= 200;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;case
+WP_GRAPPLING_HOOK:</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; addTime
+= 400;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;}</font></font></font>
+<p><font face="Verdana"><font size="-1">We are going to write an if to determine
+which attack button is being pressed. Based on the key that is being pressed,
+we are going to call a different event. Change the above code to:</font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">// Normal
+Attack Button</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">if (pm-&gt;cmd.buttons
+&amp; 1) {</font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; // Normal
+Fire Event</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; PM_AddEvent(
+EV_FIRE_WEAPON );</font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; switch(
+pm-&gt;ps-&gt;weapon ) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; default:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; case
+WP_GAUNTLET:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+addTime = 400;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; case
+WP_LIGHTNING:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+addTime = 50;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; case
+WP_SHOTGUN:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+addTime = 1000;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; case
+WP_MACHINEGUN:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+addTime = 100;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; case
+WP_GRENADE_LAUNCHER:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+addTime = 800;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; case
+WP_ROCKET_LAUNCHER:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+addTime = 800;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; case
+WP_PLASMAGUN:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+addTime = 100;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; case
+WP_RAILGUN:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+addTime = 1500;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; case
+WP_BFG:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;//&nbsp;
+addTime = 100;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+addTime = 200;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; case
+WP_GRAPPLING_HOOK:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+addTime = 400;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; }</font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;// New
+Alt Fire Button</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;} else
+if (pm-&gt;cmd.buttons &amp; 32) {</font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; // New
+Event</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; PM_AddEvent(
+EV_FIRE_WEAPON2 );</font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; switch(
+pm-&gt;ps-&gt;weapon ) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; default:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; case
+WP_GAUNTLET:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+addTime = 400;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; case
+WP_LIGHTNING:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+addTime = 50;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; case
+WP_SHOTGUN:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+addTime = 1000;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; case
+WP_MACHINEGUN:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+addTime = 100;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; case
+WP_GRENADE_LAUNCHER:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+addTime = 800;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; case
+WP_ROCKET_LAUNCHER:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+addTime = 800;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; case
+WP_PLASMAGUN:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+addTime = 100;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; case
+WP_RAILGUN:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+addTime = 1500;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; case
+WP_BFG:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;//&nbsp;
+addTime = 100;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+addTime = 200;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; case
+WP_GRAPPLING_HOOK:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+addTime = 400;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; }</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;}</font></font></font>
+<p><font face="Verdana"><font size="-1">This is some pretty simple stuff.
+You can see that the above code is one big if statement checking which
+attack button is being pressed.</font></font>
+<p><font face="Verdana"><font size="-1">If the normal attack button is being
+pressed</font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">if (pm-&gt;cmd.buttons
+&amp; 1) {</font></font></font>
+<p><font face="Verdana"><font size="-1">And half way down. Else if the second
+fire button is being pressed</font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">} else if
+(pm-&gt;cmd.buttons &amp; 32) {</font></font></font>
+<p><font face="Verdana"><font size="-1">You will notice that it is one or
+the other. This stops both buttons from being pressed at once.</font></font>
+<br><font face="Verdana"><font size="-1">You will also notice that the same
+switch statement is used for both attack buttons. The reason is that the
+switch statement controls the addTime of each weapon. "AddTime" is the
+amount of time in <i>ms</i> before the weapon can be fired again. We want
+the switch statement twice because when we start adding our cool new alt
+fire functions we may want different rates of fire between first and secondary
+fire.</font></font>
+<p><font face="Verdana"><font size="-1">The important part to note with the
+above code is these two lines:</font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">PM_AddEvent(
+EV_FIRE_WEAPON );</font></font></font>
+<br><font face="Verdana"><font size="-1">and</font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">PM_AddEvent(
+EV_FIRE_WEAPON2 );</font></font></font>
+<p><font face="Verdana"><font size="-1">These lines are calling an event
+both in game (server side) and in cgame (client side). You will notice
+that that each fire mode is calling a different event. This is great for
+us because it means we can tell quake3 to do different things with the
+current weapon based on which attack button is being pressed.</font></font>
+<p><font face="Verdana"><font size="-1">One more quick modification to this
+file.</font></font>
+<br><font face="Verdana"><font size="-1">Go down a little more to PMoveSingle
+and find the following code:</font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">// set the
+firing flag for continuous beam weapons</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">if ( !(pm-&gt;ps-&gt;pm_flags
+&amp; PMF_RESPAWNED) &amp;&amp; pm-&gt;ps-&gt;pm_type != PM_INTERMISSION</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; &amp;&amp;
+( pm-&gt;cmd.buttons &amp; BUTTON_ATTACK ) &amp;&amp; pm-&gt;ps-&gt;ammo[ pm-&gt;ps-&gt;weapon
+] ) {</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; pm-&gt;ps-&gt;eFlags
+|= EF_FIRING;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;} else
+{</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; pm-&gt;ps-&gt;eFlags
+&amp;= ~EF_FIRING;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;}</font></font></font>
+<p><font face="Verdana"><font size="-1">This is just what the comment says:
+</font><font color="#FFFFCC"><font size="-2">// set the firing flag for continuous
+beam weapons</font></font></font>
+<p><font face="Verdana"><font size="-1">We are going to make sure that our
+new attack button will also set the firing flag. Change the code to:</font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">if ( !(pm-&gt;ps-&gt;pm_flags
+&amp; PMF_RESPAWNED) &amp;&amp; pm-&gt;ps-&gt;pm_type != PM_INTERMISSION</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; &amp;&amp;
+( (pm-&gt;cmd.buttons &amp; BUTTON_ATTACK) || (pm-&gt;cmd.buttons &amp; 32) )</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; &amp;&amp;
+pm-&gt;ps-&gt;ammo[ pm-&gt;ps-&gt;weapon ] ) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; pm-&gt;ps-&gt;eFlags
+|= EF_FIRING;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;} else
+{</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; pm-&gt;ps-&gt;eFlags
+&amp;= ~EF_FIRING;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;}</font></font></font>
+<p><a name="g_active.c"></a><b><font face="Verdana"><font color="#FFFFFF"><font size="-1">g_active.c</font></font></font></b>
+<br><font face="Verdana"><font size="-1">Go down to the ClientEvents() function.
+Find the following lines of code:</font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">case EV_FIRE_WEAPON:</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;&nbsp;
+FireWeapon( ent );</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<p><font face="Verdana"><font size="-1">The above code tells the server to
+call FireWeapon() which is in g_weapon.c.</font></font>
+<br><font face="Verdana"><font size="-1">Remember that each of the attack
+keys calls a different event. Now we are going to tell the <u>server</u>
+what to do when our new alt fire is pressed. Directly below the above code
+place the following:</font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">case EV_FIRE_WEAPON2:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+FireWeapon2( ent );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<br><font face="Verdana"><font size="-1">This tells the server to call FireWeapon2()
+which does not exist yet.</font></font>
+<p><font face="Verdana"><font size="-1">Go down to ClientThink_real() function.
+Find the following line:</font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">( ucmd-&gt;buttons
+&amp; BUTTON_ATTACK ) &amp;&amp; client-&gt;ps.weaponTime &lt;= 0 ) {</font></font></font>
+<p><font face="Verdana"><font size="-1">and change it to:</font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">( (ucmd-&gt;buttons
+&amp; BUTTON_ATTACK) || (ucmd-&gt;buttons &amp; 32) ) &amp;&amp; client-&gt;ps.weaponTime
+&lt;= 0 ) {</font></font></font>
+<p><font face="Verdana"><font size="-1">This makes the gauntlet work when
+we press the new alt fire button.</font></font>
+<p><a name="bg_public.h"></a><b><font face="Verdana"><font color="#FFFFFF"><font size="-1">bg_public.h</font></font></font></b>
+<br><font face="Verdana"><font size="-1">We need to add our new event to
+the entity_event_t struct. Find the following line:</font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">EV_FIRE_WEAPON,</font></font></font>
+<p><font face="Verdana"><font size="-1">Now directly below it place the following:</font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">EV_FIRE_WEAPON2,</font></font></font>
+<p><a name="g_local.h"></a><b><font face="Verdana"><font color="#FFFFFF"><font size="-1">g_local.h</font></font></font></b>
+<br><font face="Verdana"><font size="-1">Go down and find:</font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">void FireWeapon(
+gentity_t *ent );</font></font></font>
+<p><font face="Verdana"><font size="-1">Directly below the above line place
+this code:</font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">void FireWeapon2(
+gentity_t *ent );</font></font></font>
+<p><a name="g_weapon.c"></a><b><font face="Verdana"><font color="#FFFFFF"><font size="-1">g_weapon.c</font></font></font></b>
+<br><font face="Verdana"><font size="-1">So far we have told quake3 to perform
+an event when we press alt fire. The event will trigger code in cgame (we
+haven't done this yet) and it will call FireWeapon2() in game. We are now
+going to make our FireWeapon2() function.</font></font><font face="Verdana"><font size="-1"></font></font>
+<p><font face="Verdana"><font size="-1">Go down to the bottom of the file
+and find the FireWeapon() function. Now directly below that function, place
+the following:</font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">/*</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">===============</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">FireWeapon2</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">===============</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">*/</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">void FireWeapon2(
+gentity_t *ent ) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;if (ent-&gt;client-&gt;ps.powerups[PW_QUAD]
+) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; s_quadFactor
+= g_quadfactor.value;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;} else
+{</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; s_quadFactor
+= 1;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;}</font></font></font><font face="Verdana"><font color="#FF6666"><font size="-2"></font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;// track
+shots taken for accuracy tracking.&nbsp; Grapple is not a weapon and gauntet
+is just not tracked</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;if(
+ent-&gt;s.weapon != WP_GRAPPLING_HOOK &amp;&amp; ent-&gt;s.weapon != WP_GAUNTLET
+) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; ent-&gt;client-&gt;ps.persistant[PERS_ACCURACY_SHOTS]++;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;}</font></font></font><font face="Verdana"><font color="#FF6666"><font size="-2"></font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;// set
+aiming directions</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;AngleVectors
+(ent-&gt;client-&gt;ps.viewangles, forward, right, up);</font></font></font><font face="Verdana"><font color="#FF6666"><font size="-2"></font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;CalcMuzzlePoint
+( ent, forward, right, up, muzzle );</font></font></font><font face="Verdana"><font color="#FF6666"><font size="-2"></font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;// fire
+the specific weapon</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;switch(
+ent-&gt;s.weapon ) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;case
+WP_GAUNTLET:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; Weapon_Gauntlet(
+ent );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;case
+WP_LIGHTNING:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; Weapon_LightningFire(
+ent );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;case
+WP_SHOTGUN:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; weapon_supershotgun_fire(
+ent );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;case
+WP_MACHINEGUN:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; if
+( g_gametype.integer != GT_TEAM ) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+Bullet_Fire( ent, MACHINEGUN_SPREAD, MACHINEGUN_DAMAGE );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; } else
+{</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+Bullet_Fire( ent, MACHINEGUN_SPREAD, MACHINEGUN_TEAM_DAMAGE );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; }</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;case
+WP_GRENADE_LAUNCHER:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; weapon_grenadelauncher_fire(
+ent );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;case
+WP_ROCKET_LAUNCHER:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; Weapon_RocketLauncher_Fire(
+ent );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;case
+WP_PLASMAGUN:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; Weapon_Plasmagun_Fire(
+ent );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;case
+WP_RAILGUN:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; weapon_railgun_fire(
+ent );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;case
+WP_BFG:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; BFG_Fire(
+ent );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;case
+WP_GRAPPLING_HOOK:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; Weapon_GrapplingHook_Fire(
+ent );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;default:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">// FIXME&nbsp;
+G_Error( "Bad ent-&gt;s.weapon" );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;}</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">}</font></font></font>
+<br><font face="Verdana"><font size="-1">Make sure you leave one blank line
+at the bottom of the file (if not your compiler might get upset!)</font></font>
+<br><font face="Verdana"><font size="-1">The above code is a copy-paste of
+the FireWeapon() function, but with a small name change.</font></font><font face="Verdana"><font size="-1"></font></font>
+<p><font face="Verdana"><font size="-1">Why the hell bother? Why not tell
+the event to call FireWeapon() and give us less work to do?</font></font>
+<br><font face="Verdana"><font size="-1">The reason is because the switch
+statement in this code determines which weapon the player is firing, and
+calls the corresponding weapon_fire_function. We want two different copies
+because we can now write our own weapon_fire_functions in g_weapon and
+call them either when we press primary or secondary fire (giving us complete
+control over what each fire mode of each weapon does!!!).</font></font><font face="Verdana"><font size="-1"></font></font>
+<p><font face="Verdana"><font size="-1">That's it for server side code, lets
+move on to the client side.</font></font><font face="Verdana"><font size="-1"></font></font>
+<p><a name="cg_event.c"></a><b><font face="Verdana"><font color="#FFFFFF"><font size="-1">cg_event.c</font></font></font></b>
+<br><font face="Verdana"><font size="-1">Go down and find the CG_EntityEvent()
+function. Find the following code:</font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">case EV_FIRE_WEAPON:</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; DEBUGNAME("EV_FIRE_WEAPON");</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; CG_FireWeapon(
+cent );</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; break;</font></font></font><font face="Verdana"><font size="-1"></font></font>
+<p><font face="Verdana"><font size="-1">Directly below the above code put
+the following:</font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">case EV_FIRE_WEAPON2:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; DEBUGNAME("EV_FIRE_WEAPON2");</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; CG_FireWeapon2(
+cent );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; break;</font></font></font><font face="Verdana"><font size="-1"></font></font>
+<p><font face="Verdana"><font size="-1">This is the code that is run on the
+<u>client</u> side when the EV_FIRE_WEAPON and EV_FIRE_WEAPON2 events are
+called.</font></font><font face="Verdana"><font size="-1"></font></font>
+<p><a name="cg_local.h"></a><b><font face="Verdana"><font color="#FFFFFF"><font size="-1">cg_local.h</font></font></font></b>
+<br><font face="Verdana"><font size="-1">Go down and find the this line:</font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">void CG_FireWeapon(
+centity_t *cent );</font></font></font><font face="Verdana"><font size="-1"></font></font>
+<p><font face="Verdana"><font size="-1">Now place this line directly below
+it:</font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">void CG_FireWeapon2(
+centity_t *cent );</font></font></font><font face="Verdana"><font size="-1"></font></font>
+<p><a name="cg_weapons.c"></a><b><font face="Verdana"><font color="#FFFFFF"><font size="-1">cg_weapons.c</font></font></font></b>
+<br><font face="Verdana"><font size="-1">In cg_event.c we told cgame to call
+the CG_FireWeapon2() function when the alt fire button is pressed.</font></font>
+<br><font face="Verdana"><font size="-1">Now we are going to create this
+function. Find this code:</font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">/*</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">================</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">CG_FireWeapon</font></font></font><font face="Verdana"><font color="#FFFFCC"><font size="-2"></font></font></font>
+<p><font face="Verdana"><font color="#FFFFCC"><font size="-2">Caused by an
+EV_FIRE_WEAPON event</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">================</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">*/</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">void CG_FireWeapon(
+centity_t *cent ) {</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;entityState_t
+*ent;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;int&nbsp;&nbsp;&nbsp;
+c;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;weaponInfo_t
+*weap;</font></font></font><font face="Verdana"><font color="#FFFFCC"><font size="-2"></font></font></font>
+<p><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;ent =
+&amp;cent-&gt;currentState;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;if (
+ent-&gt;weapon == WP_NONE ) {</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; return;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;}</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;if (
+ent-&gt;weapon &gt;= WP_NUM_WEAPONS ) {</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; CG_Error(
+"CG_FireWeapon: ent-&gt;weapon &gt;= WP_NUM_WEAPONS" );</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; return;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;}</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;weap
+= &amp;cg_weapons[ ent-&gt;weapon ];</font></font></font><font face="Verdana"><font color="#FFFFCC"><font size="-2"></font></font></font>
+<p><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;// mark
+the entity as muzzle flashing, so when it is added it will</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;// append
+the flash to the weapon model</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;cent-&gt;muzzleFlashTime
+= cg.time;</font></font></font><font face="Verdana"><font color="#FFFFCC"><font size="-2"></font></font></font>
+<p><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;// lightning
+gun only does this this on initial press</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;if (
+ent-&gt;weapon == WP_LIGHTNING ) {</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; if
+( cent-&gt;pe.lightningFiring ) {</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;&nbsp;
+return;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; }</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;}</font></font></font><font face="Verdana"><font color="#FFFFCC"><font size="-2"></font></font></font>
+<p><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;// play
+quad sound if needed</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;if (
+cent-&gt;currentState.powerups &amp; ( 1 &lt;&lt; PW_QUAD ) ) {</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; trap_S_StartSound
+(NULL, cent-&gt;currentState.number, CHAN_ITEM, cgs.media.quadSound );</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;}</font></font></font><font face="Verdana"><font color="#FFFFCC"><font size="-2"></font></font></font>
+<p><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;// play
+a sound</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;for
+( c = 0 ; c &lt; 4 ; c++ ) {</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; if
+( !weap-&gt;flashSound[c] ) {</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; }</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;}</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;if (
+c &gt; 0 ) {</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; c =
+rand() % c;</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; if
+( weap-&gt;flashSound[c] )</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; {</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;&nbsp;
+trap_S_StartSound( NULL, ent-&gt;number, CHAN_WEAPON, weap-&gt;flashSound[c]
+);</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; }</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;}</font></font></font><font face="Verdana"><font color="#FFFFCC"><font size="-2"></font></font></font>
+<p><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;// do
+brass ejection</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;if (
+weap-&gt;ejectBrassFunc &amp;&amp; cg_brassTime.integer &gt; 0 ) {</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp; weap-&gt;ejectBrassFunc(
+cent );</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">&nbsp;}</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">}</font></font></font><font face="Verdana"><font size="-1"></font></font>
+<p><font face="Verdana"><font size="-1">Now directly below it place:</font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">/*</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">================</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">CG_FireWeapon2</font></font></font><font face="Verdana"><font color="#FF6666"><font size="-2"></font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">Caused by an
+EV_FIRE_WEAPON2 event</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">================</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">*/</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">void CG_FireWeapon2(
+centity_t *cent ) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;entityState_t
+*ent;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;int&nbsp;&nbsp;&nbsp;
+c;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;weaponInfo_t
+*weap;</font></font></font><font face="Verdana"><font color="#FF6666"><font size="-2"></font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;ent =
+&amp;cent-&gt;currentState;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;if (
+ent-&gt;weapon == WP_NONE ) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; return;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;}</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;if (
+ent-&gt;weapon &gt;= WP_NUM_WEAPONS ) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; CG_Error(
+"CG_FireWeapon: ent-&gt;weapon &gt;= WP_NUM_WEAPONS" );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; return;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;}</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;weap
+= &amp;cg_weapons[ ent-&gt;weapon ];</font></font></font><font face="Verdana"><font color="#FF6666"><font size="-2"></font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;// mark
+the entity as muzzle flashing, so when it is added it will</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;// append
+the flash to the weapon model</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;cent-&gt;muzzleFlashTime
+= cg.time;</font></font></font><font face="Verdana"><font color="#FF6666"><font size="-2"></font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;// lightning
+gun only does this this on initial press</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;if (
+ent-&gt;weapon == WP_LIGHTNING ) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; if
+( cent-&gt;pe.lightningFiring ) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+return;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; }</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;}</font></font></font><font face="Verdana"><font color="#FF6666"><font size="-2"></font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;// play
+quad sound if needed</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;if (
+cent-&gt;currentState.powerups &amp; ( 1 &lt;&lt; PW_QUAD ) ) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; trap_S_StartSound
+(NULL, cent-&gt;currentState.number, CHAN_ITEM, cgs.media.quadSound );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;}</font></font></font><font face="Verdana"><font color="#FF6666"><font size="-2"></font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;// play
+a sound</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;for
+( c = 0 ; c &lt; 4 ; c++ ) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; if
+( !weap-&gt;flashSound[c] ) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; }</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;}</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;if (
+c &gt; 0 ) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; c =
+rand() % c;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; if
+( weap-&gt;flashSound[c] )</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+trap_S_StartSound( NULL, ent-&gt;number, CHAN_WEAPON, weap-&gt;flashSound[c]
+);</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; }</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;}</font></font></font><font face="Verdana"><font color="#FF6666"><font size="-2"></font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;// do
+brass ejection</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;if (
+weap-&gt;ejectBrassFunc &amp;&amp; cg_brassTime.integer &gt; 0 ) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; weap-&gt;ejectBrassFunc(
+cent );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;}</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">}</font></font></font><font face="Verdana"><font size="-1"></font></font>
+<p><font face="Verdana"><font size="-1">This code doesn't do much. It plays
+the fire sound for the weapons and a few other minor things. The point
+in creating a second version was to completely separate both primary and
+secondary fire modes.</font></font><font face="Verdana"><font size="-1"></font></font>
+<p><font face="Verdana"><font size="-1">When you start adding you cool new
+weapon_fire_functions, you will be spending time in this file (cg_weapon.c),
+getting your new sounds and effects working with the different fire modes.
+Having separate CG_FireWeapon functions makes life a lot easier.</font></font>
+<br><font face="Verdana"><font size="-1"></font></font>&nbsp;<font face="Verdana"><font size="-1"></font></font>
+<p><b><font face="Verdana"><font color="#FFFFFF"><font size="-1">That's It!</font></font></font></b>
+<br><font face="Verdana"><font size="-1">That is all there is to it.</font></font>
+<br><font face="Verdana"><font size="-1">Compile both game and cgame. To
+test out the modification, load up your newly created mod and start a map.
+To use your new alt fire, bring down the console and type:</font></font>
+<br><font face="Verdana"><font size="-1">\bind mouse2 +button5</font></font><font face="Verdana"><font size="-1"></font></font>
+<p><font face="Verdana"><font size="-1">This will bind mouse2 (mouse button
+2) to +button5 (our new alternate fire). Press it, and it should fire each
+of the weapons normally.</font></font>
+<br><font face="Verdana"><font size="-1">You are now ready to add your own
+alternate fire functions.</font></font><font face="Verdana"><font size="-1"></font></font>
+<p>
+<hr width="100%"><b><font face="Verdana"><font color="#FFFFFF"><font size="-1"></font></font></font></b>
+<p><font face="Verdana"><font size="-1"><b><font color="#FFFFFF">Extra-Curricular
+Activity</font></b></font></font>
+<br><font face="Verdana"><font size="-1">You have got a working alternate
+fire, but you want to test it out.</font></font>
+<br><font face="Verdana"><font size="-1">We are going to change the alternate
+fire of all the weapons (except gauntlet and machine-gun) so that they
+all fire rockets.</font></font><font face="Verdana"><font size="-1"></font></font>
+<p><b><font face="Verdana"><font color="#FFFFFF"><font size="-1">g_weapon.c</font></font></font></b>
+<br><font face="Verdana"><font color="#C0C0C0"><font size="-1">Go down to
+our newly created FireWeapon2() function and replace it with the following:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">/*</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">===============</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">FireWeapon2</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">===============</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">*/</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">void FireWeapon2(
+gentity_t *ent ) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;if (ent-&gt;client-&gt;ps.powerups[PW_QUAD]
+) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; s_quadFactor
+= g_quadfactor.value;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;} else
+{</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; s_quadFactor
+= 1;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;}</font></font></font><font face="Verdana"><font color="#FF6666"><font size="-2"></font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;// track
+shots taken for accuracy tracking.&nbsp; Grapple is not a weapon and gauntet
+is just not tracked</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;if(
+ent-&gt;s.weapon != WP_GRAPPLING_HOOK &amp;&amp; ent-&gt;s.weapon != WP_GAUNTLET
+) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; ent-&gt;client-&gt;ps.persistant[PERS_ACCURACY_SHOTS]++;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;}</font></font></font><font face="Verdana"><font color="#FF6666"><font size="-2"></font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;// set
+aiming directions</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;AngleVectors
+(ent-&gt;client-&gt;ps.viewangles, forward, right, up);</font></font></font><font face="Verdana"><font color="#FF6666"><font size="-2"></font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;CalcMuzzlePoint
+( ent, forward, right, up, muzzle );</font></font></font><font face="Verdana"><font color="#FF6666"><font size="-2"></font></font></font>
+<p><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;// fire
+the specific weapon</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;switch(
+ent-&gt;s.weapon ) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;case
+WP_GAUNTLET:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; Weapon_Gauntlet(
+ent );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;case
+WP_LIGHTNING:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; Weapon_RocketLauncher_Fire(
+ent );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;case
+WP_SHOTGUN:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; Weapon_RocketLauncher_Fire(
+ent );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;case
+WP_MACHINEGUN:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; if
+( g_gametype.integer != GT_TEAM ) {</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+Bullet_Fire( ent, MACHINEGUN_SPREAD, MACHINEGUN_DAMAGE );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; } else
+{</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;&nbsp;
+Bullet_Fire( ent, MACHINEGUN_SPREAD, MACHINEGUN_TEAM_DAMAGE );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; }</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;case
+WP_GRENADE_LAUNCHER:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; Weapon_RocketLauncher_Fire(
+ent );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;case
+WP_ROCKET_LAUNCHER:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; Weapon_RocketLauncher_Fire(
+ent );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;case
+WP_PLASMAGUN:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; Weapon_RocketLauncher_Fire(
+ent );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;case
+WP_RAILGUN:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; Weapon_RocketLauncher_Fire(
+ent );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;case
+WP_BFG:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; Weapon_RocketLauncher_Fire(
+ent );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;case
+WP_GRAPPLING_HOOK:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; Weapon_GrapplingHook_Fire(
+ent );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;default:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">// FIXME&nbsp;
+G_Error( "Bad ent-&gt;s.weapon" );</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp; break;</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">&nbsp;}</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">}</font></font></font><font face="Verdana"><font color="#C0C0C0"><font size="-1"></font></font></font>
+<p><font face="Verdana"><font color="#C0C0C0"><font size="-1">All we have
+done is replace the normal weapon fire functions with the rocket launcher's
+fire function.</font></font></font><font face="Verdana"><font color="#C0C0C0"><font size="-1"></font></font></font>
+<p><b><font face="Verdana"><font color="#FFFFFF"><font size="-1">g_items.c</font></font></font></b>
+<br><font face="Verdana"><font color="#C0C0C0"><font size="-1">What we are
+about to do is change quake3 so that the Rocket Launcher is loaded by all
+clients when they enter any level.</font></font></font>
+<br><font face="Verdana"><font color="#C0C0C0"><font size="-1">This is really
+lazy, we are doing it just to make sure that the rocket model and smoke
+trail will work on levels that do not contain rocket launchers. It is a
+quick fix and allows us to fully demonstrate the alternate fire.</font></font></font><font face="Verdana"><font color="#C0C0C0"><font size="-1"></font></font></font>
+<p><font face="Verdana"><font color="#C0C0C0"><font size="-1">Find this function:
+ClearRegisteredItems(). Directly below this line:</font></font></font>
+<br><font face="Verdana"><font color="#FFFFCC"><font size="-2">RegisterItem(
+BG_FindItemForWeapon( WP_GAUNTLET ) );</font></font></font><font face="Verdana"><font color="#C0C0C0"><font size="-1"></font></font></font>
+<p><font face="Verdana"><font color="#C0C0C0"><font size="-1">Place this
+line:</font></font></font>
+<br><font face="Verdana"><font color="#FF6666"><font size="-2">RegisterItem(
+BG_FindItemForWeapon( WP_ROCKET_LAUNCHER ) );</font></font></font><font face="Verdana"><font color="#C0C0C0"><font size="-1"></font></font></font>
+<p><b><font face="Verdana"><font color="#FFFFFF"><font size="-1">THE END</font></font></font></b>
+<br><font face="Verdana"><font color="#C0C0C0"><font size="-1">Compile the
+code and load it up, and the alternate fire for all the weapons will fire
+rockets.</font></font></font>
+<br><font face="Verdana"><font color="#C0C0C0"><font size="-1"></font></font></font>&nbsp;
+</body>
+
+<!-- SOME SCRIPT SRC'S ON THIS PAGE HAVE BEEN REWRITTEN BY THE WAYBACK MACHINE
+OF THE INTERNET ARCHIVE IN ORDER TO PRESERVE THE TEMPORAL INTEGRITY OF THE SESSION. -->
+
+
+<script language="Javascript">
+<!--
+
+// FILE ARCHIVED ON 20021113133757 AND RETRIEVED FROM THE
+// INTERNET ARCHIVE ON 20070925073707.
+// JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+// ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+// SECTION 108(a)(3)).
+
+   var sWayBackCGI = "https://web.archive.org/web/20071210024402/http://web.archive.org/web/20021113133757/";
+
+   function xResolveUrl(url) {
+      var image = new Image();
+      image.src = url;
+      return image.src;
+   }
+   function xLateUrl(aCollection, sProp) {
+      var i = 0;
+      for(i = 0; i < aCollection.length; i++) {
+         if (typeof(aCollection[i][sProp]) == "string") { 
+          if (aCollection[i][sProp].indexOf("mailto:") == -1 &&
+             aCollection[i][sProp].indexOf("javascript:") == -1) {
+            if(aCollection[i][sProp].indexOf("http") == 0) {
+                aCollection[i][sProp] = sWayBackCGI + aCollection[i][sProp];
+            } else {
+                aCollection[i][sProp] = sWayBackCGI + xResolveUrl(aCollection[i][sProp]);
+            }
+         }
+         }
+      }
+   }
+
+   xLateUrl(document.getElementsByTagName("IMG"),"src");
+   xLateUrl(document.getElementsByTagName("A"),"href");
+   xLateUrl(document.getElementsByTagName("AREA"),"href");
+   xLateUrl(document.getElementsByTagName("OBJECT"),"codebase");
+   xLateUrl(document.getElementsByTagName("OBJECT"),"data");
+   xLateUrl(document.getElementsByTagName("APPLET"),"codebase");
+   xLateUrl(document.getElementsByTagName("APPLET"),"archive");
+   xLateUrl(document.getElementsByTagName("EMBED"),"src");
+   xLateUrl(document.getElementsByTagName("BODY"),"background");
+   var forms = document.getElementsByTagName("FORM");
+   if (forms) {
+       var j = 0;
+       for (j = 0; j < forms.length; j++) {
+              f = forms[j];
+              if (typeof(f.action)  == "string") {
+                 if(typeof(f.method)  == "string") {
+                     if(typeof(f.method) != "post") {
+                        f.action = sWayBackCGI + f.action;
+                     }
+                  }
+              }
+        }
+    }
+
+
+//-->
+</script>
+
+</html><!--
+     FILE ARCHIVED ON 02:44:02 Dec 10, 2007 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 23:00:24 Jul 14, 2023.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  captures_list: 151.88
+  exclusion.robots: 0.205
+  exclusion.robots.policy: 0.195
+  cdx.remote: 0.066
+  esindex: 0.01
+  LoadShardBlock: 84.479 (3)
+  PetaboxLoader3.datanode: 61.144 (4)
+  PetaboxLoader3.resolve: 158.231 (2)
+  load_resource: 155.706
+-->
