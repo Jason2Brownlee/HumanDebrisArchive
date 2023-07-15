@@ -11,11 +11,9 @@ There is also a scan of an article in PCPowerplay magazine about one of the mods
 ## Project Directories
 
 * [`humandebris`](humandebris/) Contain a dump of the `http://planetquake.com/humandebris` files captured by the internet archive.
-* [`humandebris-files`](`humandebris-files`/) Contains a backup of the map, mod, and program files from the human debris website.
-* [`ecosystem`](`ecosystem`/) Contains the files for an article on AI development in Quake 2 for a writing competition.
-** [Ecosystem: Constructing a simple self-perpetuating society of adaptable agents](ecosystem/index.html)
-* [`finitestatemachines`](`finitestatemachines`/) Contains the files for an article on AI development in Quake for a writing competition.
-** [Finite State Machines (FSM)](finitestatemachines/FSM.html)
+* [`humandebris-files`](humandebris-files/) Contains a backup of the map, mod, and program files from the human debris website.
+* [`ecosystem`](ecosystem/) Contains the files for an article on AI development in Quake 2 for a writing competition.
+* [`finitestatemachines`](finitestatemachines/) Contains the files for an article on AI development in Quake for a writing competition.
 * [`pcpowerplay`](pcpowerplay/) Scan of an article from PCPowerplay magazine issue 52 on page 20.
 
 ## Internet Archive
@@ -24,5 +22,5 @@ Relevant off-site archives of the same material.
 
 * [http://planetquake.com/humandebris](https://web.archive.org/web/20021219012452/http://planetquake.com/humandebris/) (internet archive)
 * [http://ai-depot.com/FiniteStateMachines/](https://web.archive.org/web/20040625214646/http://ai-depot.com/FiniteStateMachines/) (internet archive)
-* [http://www.ict.swin.edu.au/personal/jbrownlee/other/games/index.html](https://web.archive.org/web/20080616100616/http://www.ict.swin.edu.au/personal/jbrownlee/other/games/index.html)
+* [http://www.ict.swin.edu.au/personal/jbrownlee/other/games/index.html](https://web.archive.org/web/20080616100616/http://www.ict.swin.edu.au/personal/jbrownlee/other/games/index.html) (internet archive)
 
