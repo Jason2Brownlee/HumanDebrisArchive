@@ -1,0 +1,27 @@
+=============================================
+Map:     DFA (Death From Above)
+Author:  Jason (Zygote) Brownlee
+Date:    11th July 2000
+Email:   hop_cha@hotmail.com
+Webpage: http://www.planetquake.com/humandebris
+=============================================
+
+Map editor:   	Q3Eradient
+Conversion Time:  About 2 Hours 
+Compile Time: 	a few minutes (vis=full light=extra)
+
+This is a small map. 
+It play's very fast in 1v1 games, and becomes a total blood bath in ffa.
+
+Installation
+------------
+Unzip the .pk3 file into your baseq3.
+Start Quake3, open the console and set "\sv_pure 0"
+
+Go into the console and type: "\map dfa"
+
+The map can also be accessed through the skirmish menu (under the singleplayer menu).
+
+Please send any comments to me at:
+hop_cha@hotmail.com
+

@@ -1,0 +1,25 @@
+=============================================
+Map:     bdaleq3.bsp 
+Author:  Jason "Zygote" Brownlee
+Date:    27th Jan 2001
+Email:   hop_cha@hotmail.com
+Webpage: http://www.planetquake.com/humandebris
+=============================================
+
+Map editor:   Q3Eradient
+Build Time:   ??? Converted Half-Life map I made
+Compile Time: A long time	(vis=full light=extra)
+
+
+Installation
+------------
+Unzip the .pk3 file into your baseq3.
+Start Quake3, open the console and set "\sv_pure 0"
+
+Go into the console and type: "\map rocketme"
+
+The map can also be accessed through the skirmish menu (under the singleplayer menu).
+
+Please send any comments to me at:
+hop_cha@hotmail.com
+

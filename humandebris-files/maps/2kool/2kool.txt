@@ -1,0 +1,35 @@
+=============================================
+Map:     2kool.bsp (2K00L)
+Author:  Jason (Zygote) Brownlee
+Date:    24th December 1999 (Xmas Eve)
+Updated: 6th July 2000
+Email:   hop_cha@hotmail.com
+Webpage: http://www.planetquake.com/humandebris
+=============================================
+
+Map editor:   Q3Eradient
+Build Time:   2-3 Hours Total
+Compile Time: 2.5 mins (vis=full light=extra)
+
+I got a bit bored, so I decided to mess with Q3Eradient some more. The product was the '2kool' level.
+This map is based on a small Quake2 map I played and enjoyed.
+
+Unzip the .pk3 file into your quake3\baseq3\ directory.
+Load up quake3 (Full Version) and type: 
+\sv_pure 0 
+into the console. This will allow you to play user maps. Then type:
+\map 2kool 
+
+The map can also be accessed through the skirmish menu (under the singleplayer menu).
+
+I haven't played it against humans yet, so if you do email me and tell me what its like. 
+The map can be used as a 1v1 tournament because it’s so small. 
+I find it a lot more fun with about 4-5 bots and me with the BFG :)
+
+**********************************************************************
+Special Thanks to 'Niptlar' for suggesting the "battle suit" powerup!
+**********************************************************************
+
+
+If you have any comments or problems with this map, email me at:
+hop_cha@hotmail.com

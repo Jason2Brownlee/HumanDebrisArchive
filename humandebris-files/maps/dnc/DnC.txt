@@ -1,0 +1,32 @@
+=============================================
+Map:     DnC.bsp (Duck 'n Cover)
+Author:  Jason (Zygote) Brownlee
+Date:    25th December 1999 (Xmas Day)
+Updated  11th Jan. 2000
+Email:   hop_cha@hotmail.com
+Webpage: http://www.planetquake.com/humandebris
+=============================================
+
+Map editor:   Q3Eradient
+Build Time:   3-4 Hours Total
+Compile Time: 23 min (vis=full light=extra)
+
+Installation:
+-------------------
+Unzip the .pk3 file into \baseq3\
+Load up quake3 (Full Version) and type '\sv_pure 0' into the console. This will allow you to play user maps.
+Then type: \map dnc
+
+The map can also be accessed through the skirmish menu (under the singleplayer menu).
+
+Thanks to my friend (Toaster) for the idea of the Rail Tower :)
+
+
+***********************************************************************************
+Special thanx to 'Niptlar' for his helpful suggestions for better entity placement!
+***********************************************************************************
+
+Please email me any feedback:
+
+Zygote
+hop_cha@hotmail.com

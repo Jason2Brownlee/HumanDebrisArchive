@@ -1,0 +1,31 @@
+=============================================
+Map:     railme.bsp (Rail Monkey)
+Author:  Jason (Zygote) Brownlee
+Date:    11th Jan 2000
+Email:   hop_cha@hotmail.com
+Webpage: http://www.planetquake.com/humandebris
+=============================================
+
+Map editor:   Q3Eradient
+Build Time:   3 Hours Total
+Compile Time: 7 mins	(vis=full light=extra)
+
+This map is really simple. It is the product of me stuffing about with the target_give entity.
+This map is good with about 3 players or 1v1 tournaments. 
+
+You start off with a railgun and heaps of ammo. There is a disc thing in the middle. 
+For every half-second you stand on it you get an armour shard and 25points of health.
+
+
+Installation
+------------
+Unzip the .pk3 file into your baseq3.
+Start Quake3, open the console and set "\sv_pure 0"
+
+Go into the console and type: "\map railme"
+
+The map can also be accessed through the skirmish menu (under the singleplayer menu).
+
+Please send any comments to me at:
+hop_cha@hotmail.com
+
