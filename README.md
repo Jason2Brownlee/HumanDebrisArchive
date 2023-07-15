@@ -37,6 +37,13 @@ Summary of the main files developed for the Human Debris project.
 * [Duck 'n Cover](humandebris-files/maps/dnc.zip)
 * [2Kool](humandebris-files/maps/2kool.zip)
 
+![Bairnsdale Q3](humandebris-files/maps/bdaleq3.jpg)
+![Death From Above](humandebris-files/maps/dfa1.jpg)
+![Railme](humandebris-files/maps/railme02.jpg)
+![Rocketme](humandebris-files/maps/rocketme01.jpg)
+![Duck 'n Cover](humandebris-files/maps/dnc02.jpg)
+![2Kool](humandebris-files/maps/2kool1.jpg)
+
 ### Quake 3 Arena Mods
 
 * [Sog's Rifle](humandebris-files/mods/sog1.1.zip)
