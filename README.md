@@ -73,6 +73,9 @@ Summary of the main files developed for the Human Debris project.
 * Finite State Machines (FSM) in the computer game Quake, AI-Depot Writing Competition (1st place), June 2002. ([archived](https://web.archive.org/web/20040625214646/http://ai-depot.com/FiniteStateMachines/))
 * Ecosystem: Constructing a simple self-perpetuating society of adaptable agents. aAlife simulation in the computer game Quake2, AI-Depot Writing Competition, April 2003. ([archived](https://web.archive.org/web/20080624004102/http://www.ict.swin.edu.au/personal/jbrownlee/other/ecosystem/index.html))
 
+![FSM of Shambler](finitestatemachines/FSM5.png)
+![Ecosystem](ecosystem/image009.jpg)
+
 ## PCPowerPlay Magazine
 
 Scan of article in PCPowerplay magazine issue 52 on page 20.
