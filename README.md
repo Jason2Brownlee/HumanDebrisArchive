@@ -6,13 +6,15 @@ The website was hosted on `http://zygote.alphalink.com.au/humadebris/` and then 
 
 There was also work on hacking bots into the Q3Test on `http://geocities.com/q3bots`, e.g. [here](https://groups.google.com/g/alt.games.quake3/c/ccjVDoyjZ84/m/ElB0HqBI3GcJ), but I think it has all been lost.
 
+There was also programming work on a Unreal Tournament to Quake 3 total conversion on `http://www.planetquake.com/meanarena/UT_2_Q3.html` that also seems to be lost.
+
 Additionally, two articles were written on AI game development for `http://ai-depot.com` and are also included in this archive.
 
 There is also a scan of an article in PCPowerplay magazine about one of the mods.
 
 ## Project Directories
 
-* [`humandebris`](humandebris/) Contain a dump of the `http://planetquake.com/humandebris` files captured by the internet archive.
+* [`humandebris`](humandebris/) Contains a dump of the `http://planetquake.com/humandebris` files captured by the internet archive.
 * [`humandebris-files`](humandebris-files/) Contains a backup of the map, mod, and program files from the human debris website.
 * [`ecosystem`](ecosystem/) Contains the files for an article on AI development in Quake 2 for a writing competition.
 * [`finitestatemachines`](finitestatemachines/) Contains the files for an article on AI development in Quake for a writing competition.
@@ -42,7 +44,10 @@ Summary of the main files developed for the Human Debris project.
 
 * [Sog's Rifle](humandebris-files/mods/sog1.1.zip). All players have a high power rifle, with very low amount of ammunition. This is a game of skill where every shot counts. SOG's Rifle has new sounds and models. The modification works with all maps, bot's and all styles of Q3 game play.
 * [I Love Rockets](humandebris-files/mods/I-Love-Rockets1.1.zip). All players spawn into the level with a Rocket Launcher and unlimited ammunition. When you die you do not drop a weapon. There are 5 different Rocket Launchers to choose from, including; Classic Q3 Rocket, Rockets effected by gravity, Homing rockets, Rapid fire rockets and Laser Guided(Half-Life style). This modification is server side.
-* [2D Platform Game](humandebris-files/mods/q3pg1.0.zip). This modification transforms Q3:Arena into an old style 2D platform game. The mod includes one example map and supports bots.
+* [2D Platform Game](humandebris-files/mods/q3pg1.0.zip). This modification transforms Q3:Arena into an old style 2D platform game. The mod includes one example map and supports bots. Third-party maps for the mod:
+	* Cyber Escape [cyber1.zip] By Thearrel "Kiltron" McKinney
+	* Led Platmaps [led-platmaps.zip] By Frederik Charest
+	* Q3-2D-dm1 [q3-2d-dm1.zip] By Matt "Mista T." Tropiano
 * [One Shot Kills (OSK)](humandebris-files/mods/osk1.1.zip). OSK stands for One Shot Kills. OSK:Arena is basically a mod that is based on Unreal Tournaments Instagib style of game play. The modification actually includes TEN different versions of instagib, selectable via a menu system. These include: Classic, Rifle, Bouncing, Telefrag, Gauntlet, Delayed(Classic), Delayed(Jump 'n Gib), Delayed(Invisible), Delayed(Haste), and Delayed(Blast).
 * [Telefrag Railgun](humandebris-files/mods/telefrag.zip). This modification changes the railgun so that when it is fired at another player the player doing the firing telefrags the target. Telefragging other players means that players a always moving around, which makes the game play very fast and furious. Camping with a railgun is no longer an option.
 
