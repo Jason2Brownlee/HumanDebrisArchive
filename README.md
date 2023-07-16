@@ -2,7 +2,7 @@
 
 This project is an archive of the Human Debris project, a collection of maps, mods, and programs developed by Jason Brownlee for the computer game Quake III Arena between 1999 and 2001 (first few years of university).
 
-The website was hosted on `http://zygote.alphalink.com.au/humadebris/` and then moved to `http://planetquake.com/humandebris`.
+The website was hosted on `http://zygote.alphalink.com.au/humadebris/` and then moved to `http://planetquake.com/humandebris`. There was also work on hacking bots into the Q3Test on `http://geocities.com/q3bots`.
 
 Additionally, two articles were written on AI game development for `http://ai-depot.com` and are also included in this archive.
 
@@ -51,12 +51,12 @@ Summary of the main files developed for the Human Debris project.
 
 ### Quake 3 Arena Tutorials
 
-* Telefrag Gun
-* Guided Rockets
-* Kamikaze Key
-* Sticky Grenades
-* Jump and gib Gun
-* Alternate Weapons Fire
+* **Telefrag Gun**. Modify the railgun so when you shoot another player, instead of killing them, you will teleport to where they are standing, hence telefrag them. This makes the railgun a lot more fun to use, and creates one hell of an anti camper / anti sniper feature.
+* **Guided Rockets**. If you have ever played Half-Life, then the concept should be familiar. Think of your crosshair as a laser pointer. Once a rocket is fired, where ever you point your crosshair, the rocket will head in that direction. The result of this tutorial is a rocket launcher similar to the one in Half-Life (not exactly the same though).
+* **Kamikaze Key**. Everybody knows the "kill" console command, where when it is issued the player will instantly commit suicide on the spot, and loose a frag. This tutorial takes the "kill" command one step further, where the player will not only suicide, but will go with a blast that will take other players with them.
+* **Sticky Grenades**. This is a very short and simple tutorial. In Quake3, when a grenade hits something that cannot be damaged, it will bounce off. Change the grenade launcher so that instead of bouncing, grenades will stick.
+* **Jump and Gib Gun**. Modify the railgun so when you shoot another player, instead of killing them straight away, the target will by thrown up in the air and then gib, hence the Jump and then Gib.
+* **Alternate Weapons Fire**. Alternate Fire means have a secondary fire button. This feature is common in other FPS games like Unreal Tournament and Half-Life. This tutorial will will take you through the steps involved in adding alternate fire to your Quake3 modification.
 
 ### Quake 3 Arena Java Programs
 
@@ -67,6 +67,11 @@ Summary of the main files developed for the Human Debris project.
 ![Server Query Tool](humandebris-files/software/ServerQuery.gif)
 ![Server Browser Tool](humandebris-files/software/ServerBrowser.gif)
 ![Fun Name Maker](humandebris-files/software/FunName.gif)
+
+## Quake AI Writing
+
+* Finite State Machines (FSM) in the computer game Quake, AI-Depot Writing Competition (1st place), June 2002. ([archived](https://web.archive.org/web/20040625214646/http://ai-depot.com/FiniteStateMachines/))
+* Ecosystem: Constructing a simple self-perpetuating society of adaptable agents. aAlife simulation in the computer game Quake2, AI-Depot Writing Competition, April 2003. ([archived](https://web.archive.org/web/20080624004102/http://www.ict.swin.edu.au/personal/jbrownlee/other/ecosystem/index.html))
 
 ## PCPowerPlay Magazine
 
