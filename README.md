@@ -2,7 +2,9 @@
 
 This project is an archive of the Human Debris project, a collection of maps, mods, and programs developed by Jason Brownlee for the computer game Quake III Arena between 1999 and 2001 (first few years of university).
 
-The website was hosted on `http://zygote.alphalink.com.au/humadebris/` and then moved to `http://planetquake.com/humandebris`. There was also work on hacking bots into the Q3Test on `http://geocities.com/q3bots`.
+The website was hosted on `http://zygote.alphalink.com.au/humadebris/` and then moved to `http://planetquake.com/humandebris`.
+
+There was also work on hacking bots into the Q3Test on `http://geocities.com/q3bots`, e.g. (here)[https://groups.google.com/g/alt.games.quake3/c/ccjVDoyjZ84/m/ElB0HqBI3GcJ], but I think it has all been lost.
 
 Additionally, two articles were written on AI game development for `http://ai-depot.com` and are also included in this archive.
 
