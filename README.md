@@ -75,13 +75,13 @@ Summary of the main files developed for the Human Debris project.
 ![Server Browser Tool](humandebris-files/software/ServerBrowser.gif)
 ![Fun Name Maker](humandebris-files/software/FunName.gif)
 
-## Quake AI Writing
+## Quake AI Essays
 
 * [Finite State Machines (FSM)](finitestatemachines/) in the computer game Quake, AI-Depot Writing Competition (1st place), June 2002.
 	* [PDF Version](finitestatemachines/Finite-State-Machines-FSM.pdf)
-	* [Archived Version](https://web.archive.org/web/20040625214646/http://ai-depot.com/FiniteStateMachines/))
+	* [Archived Version](https://web.archive.org/web/20040625214646/http://ai-depot.com/FiniteStateMachines/)
 * [Ecosystem: Constructing a simple self-perpetuating society of adaptable agents](ecosystem/). alife simulation in the computer game Quake2, AI-Depot Writing Competition, April 2003.
-	* ([Archived Version](https://web.archive.org/web/20080624004102/http://www.ict.swin.edu.au/personal/jbrownlee/other/ecosystem/index.html))
+	* [Archived Version](https://web.archive.org/web/20080624004102/http://www.ict.swin.edu.au/personal/jbrownlee/other/ecosystem/index.html)
 
 ![FSM of Shambler](finitestatemachines/FSM5.png)
 ![Ecosystem](ecosystem/image009.jpg)
