@@ -2,9 +2,9 @@
 
 This project is an archive of the Human Debris project, a collection of maps, mods, and programs developed by Jason Brownlee for the computer game Quake III Arena between 1999 and 2001 (first few years of university).
 
-The website was hosted on `http://zygote.alphalink.com.au/humadebris/` and then moved to `http://planetquake.com/humandebris`.
+This work started with my early gaming sites on `http://minyos.its.rmit.edu.au/~s9966394`, then `http://www.geocities.com/TimesSquare/Tower/8163/`, `http://geocities.com/q3bots` and `http://zygote.alphalink.com.au` before eventually being hosted on `http://planetquake.com/humandebris`.
 
-There was also work on hacking bots into the Q3Test on `http://geocities.com/q3bots`, e.g. [here](https://groups.google.com/g/alt.games.quake3/c/ccjVDoyjZ84/m/ElB0HqBI3GcJ), but I think it has all been lost.
+Very few of these pages were archived by the wayback machine. I created my own archive in the mid 2000s at `http://www.ict.swin.edu.au/personal/jbrownlee/other/games/` from which many of the files in this archive were acquired.
 
 There was also programming work on a Unreal Tournament to Quake 3 total conversion on `http://www.planetquake.com/meanarena/UT_2_Q3.html` that also seems to be lost.
 
@@ -96,6 +96,8 @@ Scan of article in PCPowerplay magazine issue 52 on page 20.
 
 Relevant off-site archives of the same material.
 
-* [http://planetquake.com/humandebris](https://web.archive.org/web/20021219012452/http://planetquake.com/humandebris/) (internet archive)
-* [http://ai-depot.com/FiniteStateMachines/](https://web.archive.org/web/20040625214646/http://ai-depot.com/FiniteStateMachines/) (internet archive)
-* [http://www.ict.swin.edu.au/personal/jbrownlee/other/games/index.html](https://web.archive.org/web/20080616100616/http://www.ict.swin.edu.au/personal/jbrownlee/other/games/index.html) (internet archive)
+* [http://minyos.its.rmit.edu.au/~s9966394/](https://web.archive.org/web/20010519113840/http://minyos.its.rmit.edu.au/~s9966394/) (archived)
+* [http://www.geocities.com:80/TimesSquare/Tower/8163/](https://web.archive.org/web/19991014005341/http://www.geocities.com:80/TimesSquare/Tower/8163/) (archived)
+* [http://planetquake.com/humandebris](https://web.archive.org/web/20021219012452/http://planetquake.com/humandebris/) (archived)
+* [http://ai-depot.com/FiniteStateMachines/](https://web.archive.org/web/20040625214646/http://ai-depot.com/FiniteStateMachines/) (archived)
+* [http://www.ict.swin.edu.au/personal/jbrownlee/other/games/index.html](https://web.archive.org/web/20080616100616/http://www.ict.swin.edu.au/personal/jbrownlee/other/games/index.html) (archived)
