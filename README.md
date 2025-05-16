@@ -96,8 +96,18 @@ Scan of article in PCPowerplay magazine issue 52 on page 20.
 
 Relevant off-site archives of the same material.
 
+Archived:
+
 * [http://minyos.its.rmit.edu.au/~s9966394/](https://web.archive.org/web/20010519113840/http://minyos.its.rmit.edu.au/~s9966394/) (archived)
 * [http://www.geocities.com:80/TimesSquare/Tower/8163/](https://web.archive.org/web/19991014005341/http://www.geocities.com:80/TimesSquare/Tower/8163/) (archived)
 * [http://planetquake.com/humandebris](https://web.archive.org/web/20021219012452/http://planetquake.com/humandebris/) (archived)
 * [http://ai-depot.com/FiniteStateMachines/](https://web.archive.org/web/20040625214646/http://ai-depot.com/FiniteStateMachines/) (archived)
 * [http://www.ict.swin.edu.au/personal/jbrownlee/other/games/index.html](https://web.archive.org/web/20080616100616/http://www.ict.swin.edu.au/personal/jbrownlee/other/games/index.html) (archived)
+
+Lost:
+
+* http://geocities.com/q3bots
+* http://zygote.alphalink.com.au
+* http://members.xoom.com/chopperland/
+* http://members.xoom.com/LinuxFPS
+* http://members.optushome.com.au/jasonbrownlee
