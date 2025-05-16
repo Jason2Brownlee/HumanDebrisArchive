@@ -6,6 +6,8 @@ This work started with my early gaming sites on `http://minyos.its.rmit.edu.au/~
 
 Very few of these pages were archived by the wayback machine. I created my own archive in the mid 2000s at `http://www.ict.swin.edu.au/personal/jbrownlee/other/games/` from which many of the files in this archive were acquired.
 
+Early work on bots for the q3test, and maps for half-life and unreal, doom, duke3d, etc. have all been lost. Mod work for quake and quake 2 has also been lost. A lot of this never made it to the public web.
+
 There was also programming work on a Unreal Tournament to Quake 3 total conversion on `http://www.planetquake.com/meanarena/` that also seems to be lost.
 
 Additionally, two articles were written on AI game development for `http://ai-depot.com` and are also included in this archive.
